@@ -131,7 +131,7 @@ select {
     transform: translate(0, 0) rotate(360deg);
   }
 }
-/* ! tailwindcss v3.2.3 | MIT License | https://tailwindcss.com */
+/* ! tailwindcss v3.2.4 | MIT License | https://tailwindcss.com */
 /*
 1. Prevent padding and border from affecting element width. (https://github.com/mozdevs/cssremedy/issues/4)
 2. Allow adding a border to an element by just adding a border-width. (https://github.com/tailwindcss/tailwindcss/pull/116)
@@ -569,25 +569,8 @@ video {
 .right-0 {
   right: 0px;
 }
-.top-\[-100\%\] {
-  top: -100%;
-}
-.left-\[-100\%\] {
-  left: -100%;
-}
 .z-10 {
   z-index: 10;
-}
-.m-auto {
-  margin: auto;
-}
-.mx-auto {
-  margin-left: auto;
-  margin-right: auto;
-}
-.my-6 {
-  margin-top: 1.5rem;
-  margin-bottom: 1.5rem;
 }
 .flex {
   display: flex;
@@ -616,18 +599,6 @@ video {
 .h-\[400px\] {
   height: 400px;
 }
-.h-\[1200px\] {
-  height: 1200px;
-}
-.h-\[4\.1666666667vw\] {
-  height: 4.1666666667vw;
-}
-.h-8 {
-  height: 2rem;
-}
-.h-\[2\.5555rem\] {
-  height: 2.5555rem;
-}
 .min-h-screen {
   min-height: 100vh;
 }
@@ -645,18 +616,6 @@ video {
 }
 .w-\[800px\] {
   width: 800px;
-}
-.w-\[2400px\] {
-  width: 2400px;
-}
-.w-40 {
-  width: 10rem;
-}
-.max-w-4xl {
-  max-width: 56rem;
-}
-.flex-1 {
-  flex: 1 1 0%;
 }
 .scale-95 {
   --tw-scale-x: .95;
@@ -689,9 +648,6 @@ video {
 .justify-center {
   justify-content: center;
 }
-.justify-between {
-  justify-content: space-between;
-}
 .space-x-2 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-x-reverse: 0;
   margin-right: calc(0.5rem * var(--tw-space-x-reverse));
@@ -717,11 +673,6 @@ video {
   margin-right: calc(1rem * var(--tw-space-x-reverse));
   margin-left: calc(1rem * calc(1 - var(--tw-space-x-reverse)));
 }
-.space-x-5 > :not([hidden]) ~ :not([hidden]) {
-  --tw-space-x-reverse: 0;
-  margin-right: calc(1.25rem * var(--tw-space-x-reverse));
-  margin-left: calc(1.25rem * calc(1 - var(--tw-space-x-reverse)));
-}
 .overflow-hidden {
   overflow: hidden;
 }
@@ -738,9 +689,6 @@ video {
 }
 .rounded-2xl {
   border-radius: 1rem;
-}
-.rounded-max {
-  border-radius: max(3px,0.4166666667vw);
 }
 .border-2 {
   border-width: 2px;
@@ -785,34 +733,9 @@ video {
   padding-left: 1rem;
   padding-right: 1rem;
 }
-.px-max {
-  padding-left: max(16px, 2.9166666667vw);
-  padding-right: max(16px, 2.9166666667vw);
-}
-.px-\[1\.3333rem\] {
-  padding-left: 1.3333rem;
-  padding-right: 1.3333rem;
-}
-.text-center {
-  text-align: center;
-}
-.text-3xl {
-  font-size: 1.875rem;
-  line-height: 2.25rem;
-}
-.uppercase {
-  text-transform: uppercase;
-}
 .text-black {
   --tw-text-opacity: 1;
   color: rgb(0 0 0 / var(--tw-text-opacity));
-}
-.text-blue-600 {
-  --tw-text-opacity: 1;
-  color: rgb(37 99 235 / var(--tw-text-opacity));
-}
-.underline {
-  text-decoration-line: underline;
 }
 .opacity-0 {
   opacity: 0;
@@ -918,12 +841,6 @@ video {
     margin-top: calc(0px * calc(1 - var(--tw-space-y-reverse)));
     margin-bottom: calc(0px * var(--tw-space-y-reverse));
   }
-  .md\:border-2 {
-    border-width: 2px;
-  }
-  .md\:border-b-2 {
-    border-bottom-width: 2px;
-  }
 }
 @media (min-width: 1024px) {
   .lg\:flex-row {
@@ -938,12 +855,6 @@ video {
     --tw-space-y-reverse: 0;
     margin-top: calc(0px * calc(1 - var(--tw-space-y-reverse)));
     margin-bottom: calc(0px * var(--tw-space-y-reverse));
-  }
-  .lg\:border-4 {
-    border-width: 4px;
-  }
-  .lg\:border-b-4 {
-    border-bottom-width: 4px;
   }
 }
 .\[\&\>img\]\:h-full>img {

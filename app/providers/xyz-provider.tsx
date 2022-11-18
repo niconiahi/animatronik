@@ -55,7 +55,6 @@ export function XyzProvider({
   const [signer, setSigner] = useState<JsonRpcSigner | undefined>(undefined);
   const [account, setAccount] = useState<string | undefined>(undefined);
   const [provider, setProvider] = useState<Provider | undefined>(undefined);
-  console.log("provider", provider);
   const [chainReference, setChainReference] = useState<
     ChainReference | undefined
   >(undefined);
@@ -121,9 +120,7 @@ export function XyzProvider({
   useEffect(() => {
     if (!provider || provider.type !== ProviderType.Metamask) return;
 
-    console.log("started listening to accounts");
     provider.provider.on("accountsChanged", (accounts) => {
-      console.log("provider.provider.on ~ accounts", accounts);
       if (accounts.length > 0) {
         const [account] = accounts;
 
@@ -144,9 +141,7 @@ export function XyzProvider({
   useEffect(() => {
     if (!provider || provider.type !== ProviderType.Metamask) return;
 
-    console.log("started listening to chains");
     provider.provider.on("chainChanged", (hexChainId: string) => {
-      console.log("provider.provider.on ~ hexChainId", hexChainId);
       const chainReference = big(hexChainId).toNumber();
 
       setChainReference(chainReference);

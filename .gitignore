@@ -1,0 +1,17 @@
+node_modules
+/build
+/public/build
+.env
+/prisma/data.db
+/prisma/data.db-journal
+/app/styles/tailwind.css
+cache
+.cache
+artifacts
+.env
+coverage
+coverage.json
+typechain
+typechain-types
+# Local Netlify folder
+.netlify

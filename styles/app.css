@@ -1,0 +1,54 @@
+@import url("a11yreset.css");
+@import url("utilitary.css");
+@import url("animations.css");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --stripe-height: 0.2rem;
+}
+
+@font-face {
+  font-family: "Source Code Pro";
+  src: url("/fonts/SourceCodePro-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@keyframes stripe-motion {
+  0% { background-position: 0% 0; }
+  100% { background-position: 100% 0; }
+}
+
+@keyframes stripe-slide-in {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(0.4rem);
+  }
+}
+
+@layer components {
+  .btn-primary {
+    display: block;
+    padding: theme('spacing.2');
+    color: theme('colors.gray.100');
+    border-radius: theme('borderRadius.sm');
+    background: theme('colors.gray.900');
+    position: relative;
+    transition: background 0.15s linear;
+  }
+
+  .btn-primary:hover {
+    background: theme('colors.gray.700');
+  }
+
+  .btn-primary:disabled {
+    background: theme('colors.gray.400');
+    cursor: not-allowed;
+  }
+}

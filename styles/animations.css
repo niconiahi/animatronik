@@ -1,0 +1,55 @@
+.route-transition {
+  animation-duration: 10s;
+  animation-name: routeloading;
+  animation-timing-function: ease-out;
+}
+
+@keyframes routeloading {
+  from {
+    width: 0%;
+  }
+
+  to {
+    width: 100%;
+  }
+}
+
+.stripes {
+  animation: 4s linear 0s infinite move-around;
+}
+
+@keyframes move-around {
+  0% {
+    transform: translate(0, 0) rotate(0);
+  }
+  10% {
+    transform: translate(30px, 0) rotate(36deg);
+  }
+  20% {
+    transform: translate(100px, 0) rotate(72deg);
+  }
+  30% {
+    transform: translate(300px, 0) rotate(108deg);
+  }
+  40% {
+    transform: translate(300px, 300px) rotate(144deg);
+  }
+  50% {
+    transform: translate(-300px, 300px) rotate(180deg);
+  }
+  60% {
+    transform: translate(-300px, 0) rotate(216deg);
+  }
+  70% {
+    transform: translate(-100px, 0) rotate(252deg);
+  }
+  80% {
+    transform: translate(100px, 0) rotate(288deg);
+  }
+  90% {
+    transform: translate(0, 0) rotate(324deg);
+  }
+  100% {
+    transform: translate(0, 0) rotate(360deg);
+  }
+}

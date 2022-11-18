@@ -6,7 +6,7 @@ export default function Index() {
       <div className="relative flex h-[400px] w-[800px] items-center justify-center overflow-hidden">
         <Link
           className="z-10 rounded-2xl border-2 border-black bg-white p-2"
-          to="animantroniks"
+          to="animatroniks"
         >
           Animantroniks
         </Link>

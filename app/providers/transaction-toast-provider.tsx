@@ -5,7 +5,6 @@ import { useRef, useState, useEffect, useContext, createContext } from "react";
 import IconButton from "~/components/icon-button";
 import X from "~/icons/x";
 import type { TransactionMachineState } from "~/machines/transaction";
-import type { TransactionOn } from "./transaction-provider";
 import { useTransaction } from "./transaction-provider";
 import { TransactionStateType } from "./transaction-provider";
 

@@ -1,16 +1,12 @@
 import type { ThrownResponse } from "@remix-run/react";
-import { useLoaderData } from "@remix-run/react";
 import { Form, useActionData, useCatch } from "@remix-run/react";
 import type { ActionArgs } from "@remix-run/server-runtime";
 import { json } from "@remix-run/server-runtime";
-import { useEffect } from "react";
-import { getAnimatroniks } from "~/models/animatronik.server";
 import { useTransaction } from "~/providers/transaction-provider";
 import { ChainReference, useXyz } from "~/providers/xyz-provider";
-import invariant from "tiny-invariant";
+import { getClassname } from "~/utils/classname";
 import { useAnimatronikContract } from "~/utils/contracts";
-import { useConnectMetamask } from "~/utils/metamask";
-import AddressDisplay from "~/components/address-display";
+import { useStyle } from "~/utils/style";
 
 export async function action({ request }: ActionArgs) {
   const formData = await request.formData();
@@ -20,14 +16,35 @@ export async function action({ request }: ActionArgs) {
       return json({
         css: CSS_STRIPES,
         svg: SVG_STRIPES,
-        animatroniks: [],
+        animatronik: null,
+      });
+    }
+    case "preview": {
+      const css = formData.get("css");
+      const svg = formData.get("svg");
+
+      if (typeof css !== "string" || !css) {
+        throw json({ error: "CSS must be provided" }, { status: 404 });
+      }
+
+      if (typeof svg !== "string" || !svg) {
+        throw json({ error: "SVG must be provided" }, { status: 404 });
+      }
+
+      return json({
+        css,
+        svg,
+        animatronik: {
+          css,
+          svg,
+        },
       });
     }
     case "clear": {
       return json({
         css: "",
         svg: "",
-        animatroniks: [],
+        animatronik: null,
       });
     }
     default: {
@@ -36,110 +53,73 @@ export async function action({ request }: ActionArgs) {
   }
 }
 
-export async function loader() {
-  const animatroniks = await getAnimatroniks();
-
-  return json({ animatroniks });
-}
-
 export default function AnimatronikPage() {
-  const connectMetamask = useConnectMetamask();
-  const { account } = useXyz();
-  const loaderData = useLoaderData<typeof loader>();
   const actionData = useActionData<typeof action>();
-
-  async function handleConnectMetamaskClick(): Promise<void> {
-    connectMetamask();
-  }
-
-  useEffect(() => {
-    if (!document || actionData?.animatroniks === undefined) return;
-
-    const prevStyles = document.querySelector("#animatronik-styles");
-
-    if (prevStyles) {
-      prevStyles.remove();
-    }
-
-    const style = document.createElement("style");
-    const css = actionData.animatroniks
-      .map(({ css }) => hashClassname(hashKeyframe(css)))
-      .join("\n\n");
-    style.textContent = css;
-    style.id = "animatronik-styles";
-    document.head.appendChild(style);
-  }, [actionData]);
+  useStyle(actionData?.animatronik ? [actionData.animatronik] : []);
 
   return (
     <>
-      <header className="flex justify-end border-b-2 border-black p-4">
-        {account ? (
-          <AddressDisplay account={account} />
-        ) : (
-          <button className="btn-primary" onClick={handleConnectMetamaskClick}>
-            Connect
-          </button>
-        )}
-      </header>
-      <main className="min-h-screen flex-col bg-white py-20 sm:flex sm:items-center sm:justify-center">
-        <Form
-          method="post"
-          className="flex w-full flex-col items-center justify-center space-y-20 px-4 md:w-3/4"
+      {actionData?.animatronik ? (
+        <li
+          key={actionData.animatronik.svg.slice(0, 30)}
+          className="h-60 w-60 overflow-hidden border-2 border-black [&>img]:h-full [&>img]:w-full"
         >
-          <ul className="grid grid-cols-1 place-items-center space-y-6 md:grid-cols-2 md:gap-6 md:space-y-0">
-            {loaderData.animatroniks.map(({ css, svg }, index) => (
-              <li
-                key={svg.slice(0, 30) + `_${index}`}
-                className="h-60 w-60 overflow-hidden border-2 border-black [&>img]:h-full [&>img]:w-full"
-              >
-                <img
-                  src={`data:image/svg+xml;utf8,${svg}`}
-                  className={getClassname(css)}
-                />
-              </li>
-            ))}
-          </ul>
-          <div className="flex w-full flex-col space-x-0 space-y-20 lg:flex-row lg:space-x-20 lg:space-y-0">
-            <p className="flex w-full flex-col">
-              <label htmlFor="css">CSS</label>
-              <textarea
-                className="form-textarea h-72 border-2 border-black"
-                id="css"
-                name="css"
-                value={actionData?.css}
-              />
-            </p>
-            <p className="flex w-full flex-col">
-              <label htmlFor="svg">SVG</label>
-              <textarea
-                className="form-textarea h-72 border-2 border-black"
-                id="svg"
-                name="svg"
-                value={actionData?.svg}
-              />
-            </p>
-          </div>
-          <section className="flex space-x-4">
-            <button
-              className="btn-primary"
-              type="submit"
-              name="_action"
-              value="example"
-            >
-              Show me an example
-            </button>
-            <button
-              className="btn-primary"
-              type="submit"
-              name="_action"
-              value="clear"
-            >
-              Clear
-            </button>
-          </section>
-        </Form>
-        <MintButton />
-      </main>
+          <img
+            src={`data:image/svg+xml;utf8,${actionData.animatronik.svg}`}
+            className={getClassname(actionData.animatronik.css)}
+          />
+        </li>
+      ) : null}
+      <Form
+        method="post"
+        className="flex w-full flex-col items-center justify-center space-y-20 px-4 md:w-3/4"
+      >
+        <p className="flex w-full flex-col">
+          <label htmlFor="css">CSS</label>
+          <textarea
+            className="form-textarea h-72 border-2 border-black"
+            id="css"
+            name="css"
+            defaultValue={actionData?.css}
+          />
+        </p>
+        <p className="flex w-full flex-col">
+          <label htmlFor="svg">SVG</label>
+          <textarea
+            className="form-textarea h-72 border-2 border-black"
+            id="svg"
+            name="svg"
+            defaultValue={actionData?.svg}
+          />
+        </p>
+        <section className="flex flex-row items-center space-x-4">
+          <button
+            className="btn-primary"
+            type="submit"
+            name="_action"
+            value="preview"
+          >
+            See preview
+          </button>
+          <button
+            className="btn-primary"
+            type="submit"
+            name="_action"
+            value="example"
+          >
+            Show me an example
+          </button>
+          <button
+            className="btn-primary"
+            type="submit"
+            name="_action"
+            value="clear"
+          >
+            Clear
+          </button>
+          <MintButton />
+        </section>
+      </Form>
     </>
   );
 }
@@ -149,7 +129,7 @@ function MintButton() {
   const animatronikContract = useAnimatronikContract();
   const actionData = useActionData<typeof action>();
   const { sendTransaction } = useTransaction();
-  const isMintDisabled = !actionData?.css || !actionData?.svg;
+  const isMintDisabled = !actionData?.css || !actionData?.svg || !account;
 
   async function handleMintAnimatronik() {
     if (
@@ -180,6 +160,7 @@ function MintButton() {
     <>
       <button
         className="btn-primary"
+        type="button"
         onClick={handleMintAnimatronik}
         disabled={isMintDisabled}
       >
@@ -198,44 +179,6 @@ export function CatchBoundary() {
       <p>Status {caught.status}</p>
     </main>
   );
-}
-
-function getRandomString() {
-  return (Math.random() + 1).toString(36).substring(7);
-}
-
-function hashKeyframe(css: string) {
-  const KEYFRAME_REGEX = /(?<=\@keyframes)(.*?)(?=\{)/;
-  const keyframeMatch = css.match(KEYFRAME_REGEX);
-  const keyframe = keyframeMatch?.[0].trim();
-  const keyframeHash = keyframe ? `${keyframe}-${getRandomString()}` : null;
-  const EVERY_KEYFRAME_REGEX = new RegExp(`${keyframe}`, "gm");
-
-  return keyframe && keyframeHash
-    ? css.replace(EVERY_KEYFRAME_REGEX, keyframeHash)
-    : css;
-}
-
-function hashClassname(css: string) {
-  const CLASS_NAME_REGEX = /(?<=\.)(.*?)(?=\s)/;
-  const classNameMatch = css.match(CLASS_NAME_REGEX);
-
-  if (classNameMatch) {
-    const classNameHash = `${classNameMatch[0].trim()}-${getRandomString()}`;
-
-    return css.replace(CLASS_NAME_REGEX, `${classNameHash} `);
-  } else {
-    throw json({ error: "No class name found", status: 404 });
-  }
-}
-
-function getClassname(css: string) {
-  const CLASS_NAME_REGEX = /(?<=\.)(.*?)(?=\s)/;
-  const classNameMatch = css.match(CLASS_NAME_REGEX);
-
-  invariant(classNameMatch, "An animatronik should contain a CSS class");
-
-  return classNameMatch[0].trim();
 }
 
 const CSS_STRIPES = `.stripes {

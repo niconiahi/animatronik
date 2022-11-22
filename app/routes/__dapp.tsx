@@ -88,7 +88,10 @@ export default function MainLayout() {
   return (
     <>
       <header className="fixed inset-x-0 z-20 flex items-center justify-between py-4 px-4 lg:px-10">
-        <Link to="/" className="h-min border-b-2 border-black bg-white p-1.5">
+        <Link
+          to="/"
+          className="h-min rounded-t-md border-b-2 border-black bg-white p-1.5"
+        >
           Animatronik
         </Link>
         {account ? (

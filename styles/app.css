@@ -10,6 +10,11 @@
   --stripe-height: 0.2rem;
 }
 
+body {
+  display: flex;
+  flex-direction: column;
+}
+
 @font-face {
   font-family: "Source Code Pro";
   src: url("/fonts/SourceCodePro-Regular.ttf") format("truetype");

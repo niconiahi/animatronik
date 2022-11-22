@@ -1,4 +1,5 @@
 import type { ThrownResponse } from "@remix-run/react";
+import { Link } from "@remix-run/react";
 import { useLoaderData } from "@remix-run/react";
 import { useCatch } from "@remix-run/react";
 import { json } from "@remix-run/server-runtime";
@@ -22,19 +23,56 @@ export default function AnimatronikPage() {
   useStyle(loaderData.animatroniks);
 
   return (
-    <ul className="grid grid-cols-1 place-items-center space-y-6 md:grid-cols-2 md:gap-6 md:space-y-0">
-      {loaderData?.animatroniks.map(({ css, svg }, index) => (
-        <li
-          key={svg.slice(0, 30) + `_${index}`}
-          className="h-60 w-60 overflow-hidden border-2 border-black [&>img]:h-full [&>img]:w-full"
-        >
-          <img
-            src={`data:image/svg+xml;utf8,${svg}`}
-            className={getClassname(css)}
-          />
-        </li>
-      ))}
-    </ul>
+    <>
+      <section className="w-full">
+        <ul className="grid grid-flow-row-dense grid-cols-1 place-items-center space-y-6 md:grid-cols-2 md:gap-6 md:space-y-0 lg:grid-cols-3 xl:grid-cols-4">
+          {loaderData?.animatroniks.map(({ css, svg }, index) => (
+            <>
+              <li
+                key={svg.slice(0, 30) + `_${index}`}
+                className="h-60 w-60 overflow-hidden border-2 border-black [&>img]:h-full [&>img]:w-full"
+              >
+                <img
+                  src={`data:image/svg+xml;utf8,${svg}`}
+                  className={getClassname(css)}
+                />
+              </li>
+
+              <li
+                key={svg.slice(0, 30) + `_${index}`}
+                className="h-60 w-60 overflow-hidden border-2 border-black [&>img]:h-full [&>img]:w-full"
+              >
+                <img
+                  src={`data:image/svg+xml;utf8,${svg}`}
+                  className={getClassname(css)}
+                />
+              </li>
+              <li
+                key={svg.slice(0, 30) + `_${index}`}
+                className="h-60 w-60 overflow-hidden border-2 border-black [&>img]:h-full [&>img]:w-full"
+              >
+                <img
+                  src={`data:image/svg+xml;utf8,${svg}`}
+                  className={getClassname(css)}
+                />
+              </li>
+              <li
+                key={svg.slice(0, 30) + `_${index}`}
+                className="h-60 w-60 overflow-hidden border-2 border-black [&>img]:h-full [&>img]:w-full"
+              >
+                <img
+                  src={`data:image/svg+xml;utf8,${svg}`}
+                  className={getClassname(css)}
+                />
+              </li>
+            </>
+          ))}
+        </ul>
+      </section>
+      <Link to="/add" className="fixed right-4 bottom-4 lg:right-10">
+        <button className="btn-primary">Create one</button>
+      </Link>
+    </>
   );
 }
 

@@ -1,5 +1,5 @@
 import type { Web3Provider } from "@ethersproject/providers";
-import { Outlet } from "@remix-run/react";
+import { Link, Outlet } from "@remix-run/react";
 import { useAtom } from "jotai";
 import { useEffect } from "react";
 import { accountAtom, setAccountAtom } from "~/atoms/account";
@@ -87,7 +87,10 @@ export default function MainLayout() {
 
   return (
     <>
-      <header className="flex justify-end border-b-2 border-black p-4">
+      <header className="fixed inset-x-0 z-20 flex items-center justify-between py-4 px-4 lg:px-10">
+        <Link to="/" className="h-min border-b-2 border-black bg-white p-1.5">
+          Animatronik
+        </Link>
         {account ? (
           <AddressDisplay account={account} />
         ) : (
@@ -96,7 +99,7 @@ export default function MainLayout() {
           </button>
         )}
       </header>
-      <main className="min-h-screen flex-col justify-center bg-white py-20 sm:flex sm:items-center sm:justify-center">
+      <main className="isolation flex w-full flex-grow flex-col items-center justify-center self-center bg-white py-[4.5rem] px-4 md:w-4/6 lg:w-3/4">
         <TransactionProvider>
           <TransactionToastProvider>
             <Outlet />

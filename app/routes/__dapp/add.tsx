@@ -62,20 +62,9 @@ export default function AnimatronikPage() {
 
   return (
     <>
-      {actionData?.animatronik ? (
-        <li
-          key={actionData.animatronik.svg.slice(0, 30)}
-          className="h-60 w-60 overflow-hidden border-2 border-black [&>img]:h-full [&>img]:w-full"
-        >
-          <img
-            src={`data:image/svg+xml;utf8,${actionData.animatronik.svg}`}
-            className={getClassname(actionData.animatronik.css)}
-          />
-        </li>
-      ) : null}
       <Form
         method="post"
-        className="flex w-full flex-col items-center justify-center space-y-20 px-4 md:w-3/4"
+        className="relative flex w-full flex-col items-center justify-center space-y-10 px-4 md:w-3/4 "
       >
         <p className="flex w-full flex-col">
           <label htmlFor="css">CSS</label>
@@ -123,6 +112,17 @@ export default function AnimatronikPage() {
           </button>
           <MintButton />
         </section>
+        {actionData?.animatronik ? (
+          <li
+            key={actionData.animatronik.svg.slice(0, 30)}
+            className="absolute top-1/4 right-10 h-60 w-60 overflow-hidden border-2 border-black bg-white md:-right-10 [&>img]:h-full [&>img]:w-full"
+          >
+            <img
+              src={`data:image/svg+xml;utf8,${actionData.animatronik.svg}`}
+              className={getClassname(actionData.animatronik.css)}
+            />
+          </li>
+        ) : null}
       </Form>
     </>
   );

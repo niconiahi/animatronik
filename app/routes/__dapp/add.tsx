@@ -2,8 +2,11 @@ import type { ThrownResponse } from "@remix-run/react";
 import { Form, useActionData, useCatch } from "@remix-run/react";
 import type { ActionArgs } from "@remix-run/server-runtime";
 import { json } from "@remix-run/server-runtime";
+import { useAtom } from "jotai";
+import { accountAtom } from "~/atoms/account";
+import { chainReferenceAtom } from "~/atoms/chainReference";
+import { ChainReference } from "~/atoms/provider";
 import { useTransaction } from "~/providers/transaction-provider";
-import { ChainReference, useXyz } from "~/providers/xyz-provider";
 import { getClassname } from "~/utils/classname";
 import { useAnimatronikContract } from "~/utils/contracts";
 import { useStyle } from "~/utils/style";
@@ -98,6 +101,7 @@ export default function AnimatronikPage() {
             type="submit"
             name="_action"
             value="preview"
+            disabled={!actionData?.css}
           >
             See preview
           </button>
@@ -125,7 +129,8 @@ export default function AnimatronikPage() {
 }
 
 function MintButton() {
-  const { chainReference, account } = useXyz();
+  const [account] = useAtom(accountAtom);
+  const [chainReference] = useAtom(chainReferenceAtom);
   const animatronikContract = useAnimatronikContract();
   const actionData = useActionData<typeof action>();
   const { sendTransaction } = useTransaction();

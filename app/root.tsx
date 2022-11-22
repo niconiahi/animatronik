@@ -8,9 +8,6 @@ import {
   ScrollRestoration,
 } from "@remix-run/react";
 import appStyles from "~/styles/app.css";
-import { TransactionProvider } from "~/providers/transaction-provider";
-import { TransactionToastProvider } from "~/providers/transaction-toast-provider";
-import { XyzProvider } from "~/providers/xyz-provider";
 
 export const links: LinksFunction = () => {
   return [{ rel: "stylesheet", href: appStyles }];
@@ -30,13 +27,7 @@ export default function App() {
         <Links />
       </head>
       <body className="h-full">
-        <XyzProvider>
-          <TransactionProvider>
-            <TransactionToastProvider>
-              <Outlet />
-            </TransactionToastProvider>
-          </TransactionProvider>
-        </XyzProvider>
+        <Outlet />
         <ScrollRestoration />
         <Scripts />
         {process.env.NODE_ENV === "development" && <LiveReload />}

@@ -569,9 +569,6 @@ video {
 .right-0 {
   right: 0px;
 }
-.z-10 {
-  z-index: 10;
-}
 .flex {
   display: flex;
 }
@@ -684,9 +681,6 @@ video {
 }
 .rounded {
   border-radius: 0.25rem;
-}
-.rounded-2xl {
-  border-radius: 1rem;
 }
 .border-2 {
   border-width: 2px;

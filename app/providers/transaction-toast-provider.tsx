@@ -1,7 +1,8 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { useActor } from "@xstate/react";
+import { atom, useAtom } from "jotai";
 import type { FC, ReactElement } from "react";
-import { useRef, useState, useEffect, useContext, createContext } from "react";
+import { useRef, useEffect, useContext, createContext } from "react";
 import IconButton from "~/components/icon-button";
 import X from "~/icons/x";
 import type { TransactionMachineState } from "~/machines/transaction";
@@ -50,11 +51,12 @@ export const TransactionToastContext = createContext<Value>(
   {}
 );
 
+const messagesAtom = atom(DEFAULT_OPTIONS);
+
 export const TransactionToastProvider: FC<{ children: ReactElement }> = ({
   children,
 }) => {
-  const [messages, setMessages] =
-    useState<TransactionToastMessages>(DEFAULT_OPTIONS);
+  const [messages, setMessages] = useAtom(messagesAtom);
 
   const composeMessages = (nextMessages: Partial<TransactionToastMessages>) => {
     const getMessages = (
@@ -108,6 +110,8 @@ export const useTransactionToast = ({
   }, [composeMessages, messages]);
 };
 
+const visibilityAtom = atom(true);
+
 function Toast({
   messages,
 }: {
@@ -115,8 +119,7 @@ function Toast({
 }): ReactElement | null {
   const { transactionService } = useTransaction();
   const [state] = useActor(transactionService);
-
-  const [isOpen, setIsOpen] = useState<boolean>(true);
+  const [isOpen, setIsOpen] = useAtom(visibilityAtom);
   const { descriptions, titles } = messages;
 
   function getTitle(

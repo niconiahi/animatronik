@@ -100,7 +100,10 @@ export default function MainLayout() {
         {account ? (
           <AddressDisplay account={account} />
         ) : (
-          <PrimaryButton onClick={handleConnectMetamaskClick}>
+          <PrimaryButton
+            onClick={handleConnectMetamaskClick}
+            className="md: py:auto mr-3 py-[8px]"
+          >
             Connect
           </PrimaryButton>
         )}

@@ -14,6 +14,10 @@
   font-family: 'Rubik Mono One', sans-serif;
 }
 
+html {
+  color-scheme: only light;
+}
+
 body {
   display: flex;
   font-family: 'Source Code Pro', sans-serif;

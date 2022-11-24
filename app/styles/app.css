@@ -853,6 +853,9 @@ body {
   .md\:-right-10 {
     right: -2.5rem;
   }
+  .md\:mr-10 {
+    margin-right: 2.5rem;
+  }
   .md\:w-4\/6 {
     width: 66.666667%;
   }

@@ -7,6 +7,7 @@ import { getAnimatroniks } from "~/models/animatronik.server";
 import { hashClassname, hashKeyframe } from "~/utils/hashing";
 import { getClassname } from "~/utils/classname";
 import { useStyle } from "~/utils/style";
+import PrimaryButton from "~/components/primary-button";
 
 export async function loader() {
   const animatroniks = await getAnimatroniks();
@@ -40,7 +41,7 @@ export default function AnimatronikPage() {
         </ul>
       </section>
       <Link to="/add" className="fixed right-4 bottom-4 lg:right-10">
-        <button className="btn-primary">Create one</button>
+        <PrimaryButton>Create one</PrimaryButton>
       </Link>
     </>
   );

@@ -102,12 +102,14 @@ export default function MainLayout() {
           </button>
         )}
       </header>
-      <main className="isolation flex w-full flex-grow flex-col items-center justify-center self-center bg-white py-[4.5rem] px-4 md:w-4/6 lg:w-3/4">
-        <TransactionProvider>
-          <TransactionToastProvider>
-            <Outlet />
-          </TransactionToastProvider>
-        </TransactionProvider>
+      <main className="isolation bg-gray.50 flex h-full w-full items-center justify-center">
+        <div className="flex w-full flex-col items-center justify-center self-center py-[4.5rem] px-4 md:w-4/6 lg:w-3/4">
+          <TransactionProvider>
+            <TransactionToastProvider>
+              <Outlet />
+            </TransactionToastProvider>
+          </TransactionProvider>
+        </div>
       </main>
     </>
   );

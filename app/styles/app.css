@@ -539,6 +539,9 @@ video {
 .z-20 {
   z-index: 20;
 }
+.mr-3 {
+  margin-right: 0.75rem;
+}
 .flex {
   display: flex;
 }
@@ -722,6 +725,10 @@ video {
   padding-top: 0.25rem;
   padding-bottom: 0.25rem;
 }
+.py-\[8px\] {
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
 .py-\[4\.75rem\] {
   padding-top: 4.75rem;
   padding-bottom: 4.75rem;
@@ -785,6 +792,9 @@ video {
 }
 .font-rubik {
   font-family: 'Rubik Mono One', sans-serif;
+}
+html {
+  color-scheme: only light;
 }
 body {
   display: flex;

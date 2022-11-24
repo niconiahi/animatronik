@@ -10,6 +10,7 @@ import { TransactionProvider } from "~/providers/transaction-provider";
 import { TransactionToastProvider } from "~/providers/transaction-toast-provider";
 import { setChainReferenceAtom } from "~/atoms/chainReference";
 import { big } from "~/utils/big-number";
+import PrimaryButton from "~/components/primary-button";
 
 export default function MainLayout() {
   const connectMetamask = useConnectMetamask();
@@ -87,23 +88,25 @@ export default function MainLayout() {
 
   return (
     <>
-      <header className="fixed inset-x-0 z-20 flex items-center justify-between py-4 px-4 lg:px-10">
+      <header className="fixed inset-x-0 z-20 flex items-center justify-between py-4">
         <Link
           to="/"
-          className="h-min rounded-t-md border-b-2 border-black bg-white p-1.5"
+          className="rounded-r-2xl border-t-2 border-b-2 border-r-2 border-gray-700 bg-white py-1.5 px-3"
         >
-          Animatronik
+          <h1 className="font-rubik text-shadow text-lg text-gray-50 md:text-3xl">
+            Animatronik
+          </h1>
         </Link>
         {account ? (
           <AddressDisplay account={account} />
         ) : (
-          <button className="btn-primary" onClick={handleConnectMetamaskClick}>
+          <PrimaryButton onClick={handleConnectMetamaskClick}>
             Connect
-          </button>
+          </PrimaryButton>
         )}
       </header>
-      <main className="isolation bg-gray.50 flex h-full w-full items-center justify-center">
-        <div className="flex w-full flex-col items-center justify-center self-center py-[4.5rem] px-4 md:w-4/6 lg:w-3/4">
+      <main className="isolation flex h-full min-h-screen w-full items-center justify-center bg-gray-50 py-[4.75rem]">
+        <div className="flex w-full flex-col items-center justify-center self-center py-1 px-4 md:w-4/6 lg:w-3/4">
           <TransactionProvider>
             <TransactionToastProvider>
               <Outlet />

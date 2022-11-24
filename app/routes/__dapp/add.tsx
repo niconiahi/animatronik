@@ -6,6 +6,7 @@ import { useAtom } from "jotai";
 import { accountAtom } from "~/atoms/account";
 import { chainReferenceAtom } from "~/atoms/chainReference";
 import { ChainReference } from "~/atoms/provider";
+import PrimaryButton from "~/components/primary-button";
 import { useTransaction } from "~/providers/transaction-provider";
 import { getClassname } from "~/utils/classname";
 import { useAnimatronikContract } from "~/utils/contracts";
@@ -84,32 +85,21 @@ export default function AnimatronikPage() {
             defaultValue={actionData?.svg}
           />
         </p>
-        <section className="flex flex-row items-center space-x-4">
-          <button
-            className="btn-primary"
+        <section className="grid grid-cols-2 grid-rows-2 gap-2 md:grid-rows-4">
+          <PrimaryButton
             type="submit"
             name="_action"
             value="preview"
             disabled={!actionData?.css}
           >
             See preview
-          </button>
-          <button
-            className="btn-primary"
-            type="submit"
-            name="_action"
-            value="example"
-          >
+          </PrimaryButton>
+          <PrimaryButton type="submit" name="_action" value="example">
             Show me an example
-          </button>
-          <button
-            className="btn-primary"
-            type="submit"
-            name="_action"
-            value="clear"
-          >
+          </PrimaryButton>
+          <PrimaryButton type="submit" name="_action" value="clear">
             Clear
-          </button>
+          </PrimaryButton>
           <MintButton />
         </section>
         {actionData?.animatronik ? (
@@ -163,14 +153,13 @@ function MintButton() {
 
   return (
     <>
-      <button
-        className="btn-primary"
+      <PrimaryButton
         type="button"
         onClick={handleMintAnimatronik}
         disabled={isMintDisabled}
       >
         Mint
-      </button>
+      </PrimaryButton>
     </>
   );
 }

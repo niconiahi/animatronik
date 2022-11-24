@@ -30,7 +30,7 @@ export default function AnimatronikPage() {
           {loaderData?.animatroniks.map(({ css, svg }, index) => (
             <li
               key={svg.slice(0, 30) + `_${index}`}
-              className="h-60 w-60 overflow-hidden border-2 border-black bg-white [&>img]:h-full [&>img]:w-full"
+              className="h-60 w-60 overflow-hidden rounded-4xl border-2 border-black bg-white [&>img]:h-full [&>img]:w-full"
             >
               <img
                 src={`data:image/svg+xml;utf8,${svg}`}

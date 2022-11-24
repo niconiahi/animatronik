@@ -8,7 +8,8 @@ export enum ChainReference {
 }
 
 export const [providerAtom, useProviderListener] = atomWithListeners(
-  typeof window !== "undefined"
+  typeof window !== "undefined" &&
+    typeof (window as any).ethereum !== "undefined"
     ? new Web3Provider((window as any).ethereum)
     : undefined
 );

@@ -108,7 +108,7 @@ export default function MainLayout() {
           </PrimaryButton>
         )}
       </header>
-      <main className="isolation flex h-full min-h-screen w-full items-center justify-center bg-gray-50 py-[4.75rem]">
+      <main className="isolation flex h-full min-h-screen w-full items-center justify-center bg-gray-50 pt-20 pb-14">
         <div className="flex w-full flex-col items-center justify-center self-center py-1 px-4 md:w-4/6 lg:w-3/4">
           <TransactionProvider>
             <TransactionToastProvider>

@@ -68,20 +68,26 @@ export default function AnimatronikPage() {
         className="relative flex w-full flex-col items-center justify-center space-y-10 px-4 md:w-3/4 "
       >
         <p className="flex w-full flex-col">
-          <label htmlFor="css">CSS</label>
+          <label htmlFor="css" className="font-rubik text-shadow text-lg">
+            CSS
+          </label>
           <textarea
-            className="form-textarea h-72 border-2 border-black"
+            className="form-textarea h-72 rounded-4xl border-2 border-black py-4 px-2"
             id="css"
             name="css"
+            wrap="off"
             defaultValue={actionData?.css}
           />
         </p>
         <p className="flex w-full flex-col">
-          <label htmlFor="svg">SVG</label>
+          <label htmlFor="css" className="font-rubik text-shadow text-lg ">
+            SVG
+          </label>
           <textarea
-            className="form-textarea h-72 border-2 border-black"
+            className="form-textarea h-72 rounded-4xl border-2 border-black py-4 px-2"
             id="svg"
             name="svg"
+            wrap="off"
             defaultValue={actionData?.svg}
           />
         </p>

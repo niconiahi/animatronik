@@ -11,15 +11,18 @@ type Props =
 export default function PrimaryButton({
   children,
   className: classNameProp,
+  ...buttonProps
 }: Props): ReactElement {
   return (
-    <button className={composeClassName(classNameProp)}>{children}</button>
+    <button className={composeClassName(classNameProp)} {...buttonProps}>
+      {children}
+    </button>
   );
 }
 
 function composeClassName(className?: string) {
   return clsx(
-    "move-up rounded-4xl border-2 border-gray-700 px-6 py-3 font-semibold uppercase md:px-8 md:py-4",
+    "bg-white move-up rounded-4xl border-2 border-gray-700 px-6 py-3 font-semibold uppercase md:px-8 md:py-4",
     className
   );
 }

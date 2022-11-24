@@ -20,6 +20,12 @@ module.exports = {
       borderRadius: {
         "4xl": "2rem",
       },
+      borderWidth: {
+        12: "12px",
+      },
+      spacing: {
+        18: "4.5rem",
+      },
     },
   },
   plugins: [],

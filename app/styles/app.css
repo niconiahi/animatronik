@@ -892,6 +892,22 @@ body {
     padding-top: 1rem;
     padding-bottom: 1rem;
   }
+  .md\:py-2 {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+  .md\:py-2\.5 {
+    padding-top: 0.625rem;
+    padding-bottom: 0.625rem;
+  }
+  .md\:py-\[11px\] {
+    padding-top: 11px;
+    padding-bottom: 11px;
+  }
+  .md\:py-\[12px\] {
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
   .md\:text-3xl {
     font-size: 1.875rem;
     line-height: 2.25rem;

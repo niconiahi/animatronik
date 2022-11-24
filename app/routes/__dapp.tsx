@@ -102,7 +102,7 @@ export default function MainLayout() {
         ) : (
           <PrimaryButton
             onClick={handleConnectMetamaskClick}
-            className="md: py:auto mr-3 py-[8px] md:mr-10"
+            className="md: py:auto mr-3 py-[8px] md:mr-10 md:py-[12px]"
           >
             Connect
           </PrimaryButton>

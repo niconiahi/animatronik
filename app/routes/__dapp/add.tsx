@@ -65,7 +65,7 @@ export default function AnimatronikPage() {
     <>
       <Form
         method="post"
-        className="relative flex w-full flex-col items-center justify-center space-y-10 px-4 md:w-3/4 "
+        className="relative flex w-full flex-col items-center justify-center space-y-10 px-4"
       >
         <p className="flex w-full flex-col">
           <label htmlFor="css" className="font-rubik text-shadow text-lg">
@@ -91,7 +91,7 @@ export default function AnimatronikPage() {
             defaultValue={actionData?.svg}
           />
         </p>
-        <section className="grid grid-cols-2 grid-rows-2 gap-2 md:grid-rows-4">
+        <section className="grid grid-cols-2 grid-rows-2 gap-x-2 gap-y-3">
           <PrimaryButton
             type="submit"
             name="_action"
@@ -109,15 +109,22 @@ export default function AnimatronikPage() {
           <MintButton />
         </section>
         {actionData?.animatronik ? (
-          <li
-            key={actionData.animatronik.svg.slice(0, 30)}
-            className="absolute top-1/4 right-10 h-60 w-60 overflow-hidden border-2 border-black bg-white md:-right-10 [&>img]:h-full [&>img]:w-full"
-          >
-            <img
-              src={`data:image/svg+xml;utf8,${actionData.animatronik.svg}`}
-              className={getClassname(actionData.animatronik.css)}
-            />
-          </li>
+          <section className="absolute top-1/4 right-10 flex flex-col space-y-4">
+            <ul className="list-none">
+              <li
+                key={actionData.animatronik.svg.slice(0, 30)}
+                className="h-60 w-60 overflow-hidden rounded-4xl border-2 border-black bg-white md:-right-10 [&>img]:h-full [&>img]:w-full"
+              >
+                <img
+                  src={`data:image/svg+xml;utf8,${actionData.animatronik.svg}`}
+                  className={getClassname(actionData.animatronik.css)}
+                />
+              </li>
+            </ul>
+            <PrimaryButton type="submit" name="_action" value="clear">
+              Clear
+            </PrimaryButton>
+          </section>
         ) : null}
       </Form>
     </>

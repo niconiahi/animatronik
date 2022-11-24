@@ -1,5 +1,4 @@
 import { useAtom } from "jotai";
-import invariant from "tiny-invariant";
 import { providerAtom } from "~/atoms/provider";
 import { setAccountAtom } from "~/atoms/account";
 
@@ -8,7 +7,11 @@ export function useConnectMetamask(): () => Promise<void> {
   const [_, setAccount] = useAtom(setAccountAtom);
 
   async function connectMetamask() {
-    invariant(provider, "You need to have Metamask installed");
+    if (!provider) {
+      alert("You need Metamask to use this application");
+
+      return;
+    }
 
     await provider.send("eth_requestAccounts", []).then((accounts) => {
       const [account] = accounts;

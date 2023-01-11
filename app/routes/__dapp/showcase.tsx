@@ -40,7 +40,7 @@ export default function AnimatronikPage() {
           ))}
         </ul>
       </section>
-      <Link to="/add" className="fixed right-4 bottom-4 lg:right-10">
+      <Link to="/add" className="fixed right-4 bottom-4 md:right-10">
         <PrimaryButton>Create one</PrimaryButton>
       </Link>
     </>

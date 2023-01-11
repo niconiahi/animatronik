@@ -80,7 +80,10 @@ export default function AnimatronikPage() {
           />
         </p>
         <p className="flex w-full flex-col">
-          <label htmlFor="css" className="font-rubik text-shadow text-lg ">
+          <label
+            htmlFor="css"
+            className="font-rubik text-shadow text-lg md:text-3xl"
+          >
             SVG
           </label>
           <textarea

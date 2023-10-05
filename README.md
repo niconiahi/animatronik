@@ -2,7 +2,7 @@
 In this repository you'll learn see a proof of concept (POC) for an application which lets you add a collectible to the Ethereum network (an NFT). This NFT is some HTML with some CSS applied to it. The idea here is that the CSS animates the HTML and you have a moving figure that is yours and yours only, which will exists for the eternity. You'll see code examples of [state machines](https://stately.ai/docs/xstate) and [atoms](https://jotai.org/docs/introduction) 
 
 ### Demo
-In this demo you would be able to see other Animatroniks from other people and add one. Right now, I'm migrating this repository from Netlify to Clodflare Pages as I only intend to work within the Edge runtime from now on. This repository is currently building upon [ethers.js](https://github.com/ethers-io/ethers.js) which is not browser-native, thus, it does not work if it's not on a Node environment
+In this demo you would be able to see other Animatroniks from other people and add one. Right now, I'm migrating this repository from Netlify to Clodflare Pages as I only intend to work within the Edge runtime from now on. This repository is currently building upon [ethers.js](https://github.com/ethers-io/ethers.js) which is built upon Node, thus, it's not compatible with Coudflare
 
 ### Files to pay attention
 1. [signer.ts](/app/atoms/signer.ts)

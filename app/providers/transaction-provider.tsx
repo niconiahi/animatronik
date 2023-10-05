@@ -1,16 +1,16 @@
 import type { FC, ReactElement } from "react";
 import { useInterpret, useActor } from "@xstate/react";
 import { useContext, createContext } from "react";
-import type {
-  ContractReceipt,
-  ContractTransaction,
-} from "@ethersproject/contracts";
 import type { TransactionMachineService } from "~/machines/transaction";
 import { transactionMachine } from "~/machines/transaction";
 import type { TransactionToastMessages } from "~/providers/transaction-toast-provider";
 import { useTransactionToast } from "~/providers/transaction-toast-provider";
+import type {
+  ContractTransactionReceipt,
+  ContractTransactionResponse,
+} from "ethers";
 
-export type TransactionFunction = () => Promise<ContractTransaction>;
+export type TransactionFunction = () => Promise<ContractTransactionResponse>;
 export enum TransactionStateType {
   Idle = "idle",
   Mined = "mined",
@@ -20,7 +20,7 @@ export enum TransactionStateType {
 }
 
 type TransactionStateMining = {
-  transaction: ContractTransaction;
+  transaction: ContractTransactionResponse;
 };
 export type TransactionOnMining = (context: TransactionStateMining) => void;
 
@@ -30,8 +30,8 @@ type TransactionStateFailed = {
 export type TransactionOnFailed = (context: TransactionStateFailed) => void;
 
 type TransactionStateMined = {
-  receipt: ContractReceipt;
-  transaction: ContractTransaction;
+  receipt: ContractTransactionReceipt;
+  transaction: ContractTransactionResponse;
 };
 export type TransactionOnMined = (context: TransactionStateMined) => void;
 
@@ -66,7 +66,10 @@ export const TransactionProvider: FC<{ children: ReactElement }> = ({
       send({ type: "SIGNED", transaction });
 
       const receipt = await transaction.wait();
-      send({ type: "MINED", receipt, transaction });
+
+      if (receipt) {
+        send({ type: "MINED", receipt, transaction });
+      }
     } catch (error) {
       // @ts-expect-error correct this typing, should be fine
       send({ type: "FAILED", error });

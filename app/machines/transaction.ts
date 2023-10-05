@@ -1,10 +1,9 @@
-/* eslint-disable camelcase */
 import type { InterpreterFrom } from "xstate";
 import { createMachine, assign } from "xstate";
 import type {
-  ContractReceipt,
-  ContractTransaction,
-} from "@ethersproject/contracts";
+  ContractTransactionResponse,
+  ContractTransactionReceipt,
+} from "ethers";
 
 import type { TransactionOn } from "~/providers/transaction-provider";
 
@@ -24,12 +23,12 @@ type TransactionMachineEvent =
     }
   | {
       type: "SIGNED";
-      transaction: ContractTransaction;
+      transaction: ContractTransactionResponse;
     }
   | {
       type: "MINED";
-      receipt: ContractReceipt;
-      transaction: ContractTransaction;
+      receipt: ContractTransactionReceipt;
+      transaction: ContractTransactionResponse;
     }
   | {
       type: "FAILED";
@@ -43,8 +42,8 @@ type TransactionMachineEvent =
 type TransactionMachineContext = {
   on: TransactionOn;
   error?: Error;
-  receipt?: ContractReceipt;
-  transaction?: ContractTransaction;
+  receipt?: ContractTransactionReceipt;
+  transaction?: ContractTransactionResponse;
 };
 
 type TransactionMachineTypestate =
@@ -59,14 +58,14 @@ type TransactionMachineTypestate =
   | {
       value: "mining";
       context: TransactionMachineContext & {
-        transaction: ContractTransaction;
+        transaction: ContractTransactionResponse;
       };
     }
   | {
       value: "mined";
       context: TransactionMachineContext & {
-        receipt: ContractReceipt;
-        transaction: ContractTransaction;
+        receipt: ContractTransactionReceipt;
+        transaction: ContractTransactionResponse;
       };
     }
   | {
@@ -123,7 +122,7 @@ export const transactionMachine = createMachine<
       entry: [
         (context) =>
           context.on.mining?.({
-            transaction: context.transaction as ContractTransaction,
+            transaction: context.transaction as ContractTransactionResponse,
           }),
       ],
       on: {
@@ -142,8 +141,8 @@ export const transactionMachine = createMachine<
       entry: [
         (context) =>
           context.on.mined?.({
-            receipt: context.receipt as ContractReceipt,
-            transaction: context.transaction as ContractTransaction,
+            receipt: context.receipt as ContractTransactionReceipt,
+            transaction: context.transaction as ContractTransactionResponse,
           }),
       ],
     },

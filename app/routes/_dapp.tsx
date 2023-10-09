@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import type { Web3Provider } from "@ethersproject/providers";
 import { Link, Outlet } from "@remix-run/react";
 import { useAtom } from "jotai";
@@ -11,6 +12,20 @@ import { TransactionToastProvider } from "~/providers/transaction-toast-provider
 import { setChainReferenceAtom } from "~/atoms/chainReference";
 import { big } from "~/utils/big-number";
 import PrimaryButton from "~/components/primary-button";
+import { json } from "@remix-run/cloudflare";
+import { createEip1102Client } from "~/ethereum/eip-1102";
+import { createJsonRpcClient } from "~/ethereum/json-rpc";
+
+export function loader() {
+  const eip1102Client = createEip1102Client();
+  const accounts = eip1102Client.send(["eth_requestAccounts"]);
+
+  const jsonRpcClient = createJsonRpcClient();
+  const blockNumber = jsonRpcClient.send(["eth_blockNumber"]);
+  const byteData = jsonRpcClient.send(["eth_sendRawTransaction", ["sdfs"]]);
+
+  return json({ name: "nico" });
+}
 
 export default function MainLayout() {
   const connectMetamask = useConnectMetamask();

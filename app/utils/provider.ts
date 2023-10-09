@@ -1,5 +1,5 @@
 import { JsonRpcProvider } from "@ethersproject/providers";
-import { ChainReference } from "~/atoms/provider";
+import { ChainReference } from "~/ethereum/chain";
 
 export function getRpcProvider({
   chainReference,

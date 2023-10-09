@@ -48,3 +48,9 @@ In this demo you would be able to see other Animatroniks from other people and a
 - I have downloaded the artifacts (aka ABIs) for the contracts that my Animatronik contract needs [here](contracts/artifacts/)
 - After having the artifacts in your codebase, you can run the `gen:contracts` command found [here](package.json#L10)
 - You'll get types after running the command. The output folder I have it set it up is [here](contracts/types/)
+
+#### Ethereum base
+- Visit the file [chain.tsx](/app/ethereum/chain.ts) and see the low level API to manipulate Ethereum's network
+- Visit the file [eip-1102.tsx](/app/ethereum/eip-1102.ts) and see the low level API to instance an EIP-1102 compliant client
+- Visit the file [eip-1193.tsx](/app/ethereum/eip-1193.ts) and see the low level API to instance an EIP-1193 compliant client
+- Visit the file [json-rpc.tsx](/app/ethereum/json-rpc.ts) and see the low level API to instance an JSON-RPC compliant client

@@ -1,6 +1,7 @@
-import { atom } from "jotai";
-import { providerAtom } from "~/atoms/provider";
+import { atom } from "jotai"
+
+import { providerAtom } from "~/atoms/provider"
 
 export const signerAtom = atom(
-  (get) => get(providerAtom)?.getSigner() ?? undefined,
-);
+  get => get(providerAtom)?.getSigner() ?? undefined,
+)

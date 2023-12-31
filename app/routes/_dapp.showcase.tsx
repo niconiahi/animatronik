@@ -1,25 +1,20 @@
-import { Link, useLoaderData } from "@remix-run/react";
-import { json } from "@remix-run/server-runtime";
-import type { Animatronik } from "~/models/animatronik.server";
+import { Link, useLoaderData } from "@remix-run/react"
+import { json } from "@remix-run/server-runtime"
+import type { Animatronik } from "~/models/animatronik.server"
+
 // import { getAnimatroniks } from "~/models/animatronik.server";
 // import { hashClassname, hashKeyframe } from "~/utils/hashing";
-import { getClassname } from "~/utils/classname";
-import { useStyle } from "~/utils/style";
-import PrimaryButton from "~/components/primary-button";
+import { getClassname } from "~/utils/classname"
+import { useStyle } from "~/utils/style"
+import PrimaryButton from "~/components/primary-button"
 
 export async function loader() {
-  // const animatroniks = await getAnimatroniks();
-  // const nextAnimatroniks = animatroniks.map((animatronik) => ({
-  //   ...animatronik,
-  //   css: hashClassname(hashKeyframe(animatronik.css)),
-  // }));
-
-  return json({ animatroniks: [] as Animatronik[] });
+  return json({ animatroniks: [] as Animatronik[] })
 }
 
 export default function AnimatronikPage() {
-  const loaderData = useLoaderData<typeof loader>();
-  useStyle(loaderData.animatroniks);
+  const loaderData = useLoaderData<typeof loader>()
+  useStyle(loaderData.animatroniks)
 
   return (
     <>
@@ -27,10 +22,11 @@ export default function AnimatronikPage() {
         <ul className="grid grid-flow-row-dense grid-cols-1 place-items-center space-y-6 md:grid-cols-2 md:gap-6 md:space-y-0 lg:grid-cols-3 xl:grid-cols-4">
           {(loaderData?.animatroniks ?? []).map(({ css, svg }, index) => (
             <li
-              key={svg.slice(0, 30) + `_${index}`}
+              key={`${svg.slice(0, 30)}_${index}`}
               className="h-60 w-60 overflow-hidden rounded-4xl border-2 border-black bg-white [&>img]:h-full [&>img]:w-full"
             >
               <img
+
                 src={`data:image/svg+xml;utf8,${svg}`}
                 className={getClassname(css)}
               />
@@ -42,5 +38,5 @@ export default function AnimatronikPage() {
         <PrimaryButton>Create one</PrimaryButton>
       </Link>
     </>
-  );
+  )
 }

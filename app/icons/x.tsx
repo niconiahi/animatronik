@@ -1,8 +1,8 @@
-import type { ReactElement } from "react";
+import type { ReactElement } from "react"
 
-type Props = {
-  className?: string;
-};
+interface Props {
+  className?: string
+}
 
 function X({ className = "" }: Props): ReactElement {
   return (
@@ -21,7 +21,7 @@ function X({ className = "" }: Props): ReactElement {
       <line x1="18" x2="6" y1="6" y2="18" />
       <line x1="6" x2="18" y1="6" y2="18" />
     </svg>
-  );
+  )
 }
 
-export default X;
+export default X

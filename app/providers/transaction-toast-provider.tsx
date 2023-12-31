@@ -1,65 +1,64 @@
-import { Dialog, Transition } from "@headlessui/react";
-import { useActor } from "@xstate/react";
-import { atom, useAtom } from "jotai";
-import type { FC, ReactElement } from "react";
-import { useRef, useEffect, useContext, createContext } from "react";
-import IconButton from "~/components/icon-button";
-import X from "~/icons/x";
-import type { TransactionMachineState } from "~/machines/transaction";
-import { getErrorMessage } from "~/utils/error-message";
+import { Dialog, Transition } from "@headlessui/react"
+import { useActor } from "@xstate/react"
+import { atom, useAtom } from "jotai"
+import type { FC, ReactElement } from "react"
+import { createContext, useContext, useEffect, useRef } from "react"
+import IconButton from "~/components/icon-button"
+import X from "~/icons/x"
+import type { TransactionMachineState } from "~/machines/transaction"
+import { getErrorMessage } from "~/utils/error-message"
 import {
+  TRANSACTION_STATE,
   useTransaction,
-  TransactionStateType,
-} from "~/providers/transaction-provider";
+} from "~/providers/transaction-provider"
 
-type Titles = {
-  [TransactionStateType.Mined]: string;
-  [TransactionStateType.Failed]: string;
-  [TransactionStateType.Mining]: string;
-  [TransactionStateType.Pending]: string;
-};
-type Descriptions = {
-  [TransactionStateType.Mined]: string;
-  [TransactionStateType.Failed]: string;
-  [TransactionStateType.Mining]: string;
-  [TransactionStateType.Pending]: string;
-};
-export type TransactionToastMessages = {
-  titles: Titles;
-  descriptions: Descriptions;
-};
+interface Titles {
+  [TRANSACTION_STATE.Mined]: string
+  [TRANSACTION_STATE.Failed]: string
+  [TRANSACTION_STATE.Mining]: string
+  [TRANSACTION_STATE.Pending]: string
+}
+interface Descriptions {
+  [TRANSACTION_STATE.Mined]: string
+  [TRANSACTION_STATE.Failed]: string
+  [TRANSACTION_STATE.Mining]: string
+  [TRANSACTION_STATE.Pending]: string
+}
+export interface TransactionToastMessages {
+  titles: Titles
+  descriptions: Descriptions
+}
 
 const DEFAULT_OPTIONS = {
   titles: {
-    [TransactionStateType.Mined]: "Transaction mined",
-    [TransactionStateType.Failed]: "Transaction failed",
-    [TransactionStateType.Mining]: "Transaction mining",
-    [TransactionStateType.Pending]: "Transaction pending",
+    [TRANSACTION_STATE.Mined]: "Transaction mined",
+    [TRANSACTION_STATE.Failed]: "Transaction failed",
+    [TRANSACTION_STATE.Mining]: "Transaction mining",
+    [TRANSACTION_STATE.Pending]: "Transaction pending",
   },
   descriptions: {
-    [TransactionStateType.Mined]: "Your transaction was mined by a miner",
-    [TransactionStateType.Failed]: "Your transaction failed to be transacted",
-    [TransactionStateType.Mining]:
-      "Your transaction was sent to the blockchain",
-    [TransactionStateType.Pending]: "Your transaction is pending to be signed",
+    [TRANSACTION_STATE.Mined]: "Your transaction was mined by a miner",
+    [TRANSACTION_STATE.Failed]: "Your transaction failed to be transacted",
+    [TRANSACTION_STATE.Mining]: "Your transaction was sent to the blockchain",
+    [TRANSACTION_STATE.Pending]: "Your transaction is pending to be signed",
   },
-};
+}
 
-type Value = {
-  composeMessages: (userOptions: Partial<TransactionToastMessages>) => void;
-};
+interface Value {
+  composeMessages: (userOptions: Partial<TransactionToastMessages>) => void
+}
 
 export const TransactionToastContext = createContext<Value>(
   // @ts-expect-error It's a good practice not to give a default value even though the linter tells you so
   {},
-);
+)
 
-const messagesAtom = atom(DEFAULT_OPTIONS);
+const messagesAtom = atom(DEFAULT_OPTIONS)
 
 export const TransactionToastProvider: FC<{ children: ReactElement }> = ({
   children,
 }) => {
-  const [messages, setMessages] = useAtom(messagesAtom);
+  const [messages, setMessages] = useAtom(messagesAtom)
 
   const composeMessages = (nextMessages: Partial<TransactionToastMessages>) => {
     const getMessages = (
@@ -69,105 +68,112 @@ export const TransactionToastProvider: FC<{ children: ReactElement }> = ({
       const messages = {
         ...defaultMessages,
         ...nextMessages,
-      };
+      }
 
-      return messages;
-    };
+      return messages
+    }
 
-    const messages = getMessages(DEFAULT_OPTIONS, nextMessages);
+    const messages = getMessages(DEFAULT_OPTIONS, nextMessages)
 
-    setMessages(messages);
-  };
+    setMessages(messages)
+  }
 
   return (
     <TransactionToastContext.Provider value={{ composeMessages }}>
       {children}
       <Toast messages={messages} />
     </TransactionToastContext.Provider>
-  );
-};
+  )
+}
 
-export const useTransactionToast = ({
+export function useTransactionToast({
   messages,
 }: {
-  messages?: Partial<TransactionToastMessages>;
-} = {}): void => {
-  const hasSetMessages = useRef<boolean>(false);
-  const transactionToastContext = useContext(TransactionToastContext);
+  messages?: Partial<TransactionToastMessages>
+} = {}): void {
+  const hasSetMessages = useRef<boolean>(false)
+  const transactionToastContext = useContext(TransactionToastContext)
 
   if (!transactionToastContext) {
     throw new Error(
       "You forgot to use your useTransactionToast within a TransactionToastProvider",
-    );
+    )
   }
 
-  const { composeMessages } = transactionToastContext;
+  const { composeMessages } = transactionToastContext
 
   useEffect(() => {
-    if (!messages) return;
+    if (!messages)
+      return
 
     if (!hasSetMessages.current) {
-      composeMessages(messages);
-      hasSetMessages.current = true;
+      composeMessages(messages)
+      hasSetMessages.current = true
     }
-  }, [composeMessages, messages]);
-};
+  }, [composeMessages, messages])
+}
 
-const visibilityAtom = atom(true);
+const visibilityAtom = atom(true)
 
 function Toast({
   messages,
 }: {
-  messages: TransactionToastMessages;
+  messages: TransactionToastMessages
 }): ReactElement | null {
-  const { transactionService } = useTransaction();
-  const [state] = useActor(transactionService);
-  const [isOpen, setIsOpen] = useAtom(visibilityAtom);
-  const { descriptions, titles } = messages;
+  const { transactionService } = useTransaction()
+  const [state] = useActor(transactionService)
+  const [isOpen, setIsOpen] = useAtom(visibilityAtom)
+  const { descriptions, titles } = messages
 
   function getTitle(
     state: TransactionMachineState,
     titles: Titles,
   ): string | undefined {
-    if (state.value === TransactionStateType.Mined)
-      return titles[TransactionStateType.Mined];
-    if (state.value === TransactionStateType.Mining)
-      return titles[TransactionStateType.Mining];
-    if (state.value === TransactionStateType.Pending)
-      return titles[TransactionStateType.Pending];
-    if (state.value === TransactionStateType.Failed)
-      return titles[TransactionStateType.Failed];
+    if (state.value === "mined")
+      return titles.mined
 
-    return undefined;
+    if (state.value === "mining")
+      return titles.mining
+
+    if (state.value === "pending")
+      return titles.pending
+
+    if (state.value === "failed")
+      return titles.failed
+
+    return undefined
   }
 
   function getDescription(
     state: TransactionMachineState,
     descriptions: Descriptions,
   ): string | undefined {
-    if (state.value === TransactionStateType.Mined)
-      return descriptions[TransactionStateType.Mined];
-    if (state.value === TransactionStateType.Mining)
-      return descriptions[TransactionStateType.Mining];
-    if (state.value === TransactionStateType.Pending)
-      return descriptions[TransactionStateType.Pending];
-    if (state.value === TransactionStateType.Failed) {
-      const errorMessage = getErrorMessage(state.context?.error);
+    if (state.value === "mined")
+      return descriptions.mined
 
-      if (errorMessage.includes("user rejected transaction")) {
-        return "The request was rejected by the user";
-      }
+    if (state.value === "mining")
+      return descriptions.mining
 
-      return descriptions[TransactionStateType.Failed];
+    if (state.value === "pending")
+      return descriptions.pending
+
+    if (state.value === "failed") {
+      const errorMessage = getErrorMessage(state.context?.error)
+
+      if (errorMessage.includes("user rejected transaction"))
+        return "The request was rejected by the user"
+
+      return descriptions.failed
     }
 
-    return undefined;
+    return undefined
   }
 
-  if (state.value === TransactionStateType.Idle) return null;
+  if (state.value === TRANSACTION_STATE.Idle)
+    return null
 
-  const title = getTitle(state, titles);
-  const description = getDescription(state, descriptions);
+  const title = getTitle(state, titles)
+  const description = getDescription(state, descriptions)
 
   return (
     <Transition
@@ -197,5 +203,5 @@ function Toast({
         </div>
       </Dialog>
     </Transition>
-  );
+  )
 }

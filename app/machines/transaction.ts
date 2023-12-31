@@ -1,79 +1,79 @@
-import type { InterpreterFrom } from "xstate";
-import { createMachine, assign } from "xstate";
 import type {
-  ContractTransactionResponse,
   ContractTransactionReceipt,
-} from "ethers";
+  ContractTransactionResponse,
+} from "ethers"
+import type { InterpreterFrom } from "xstate"
+import { assign, createMachine } from "xstate"
 
-import type { TransactionOn } from "~/providers/transaction-provider";
+import type { TransactionOn } from "~/providers/transaction-provider"
 
 export type TransactionMachineSend = InterpreterFrom<
   typeof transactionMachine
->["send"];
+>["send"]
 export type TransactionMachineState = InterpreterFrom<
   typeof transactionMachine
->["state"];
+>["state"]
 export type TransactionMachineService = InterpreterFrom<
   typeof transactionMachine
->;
+>
 
 type TransactionMachineEvent =
   | {
-      type: "START";
-    }
+    type: "START"
+  }
   | {
-      type: "SIGNED";
-      transaction: ContractTransactionResponse;
-    }
+    type: "SIGNED"
+    transaction: ContractTransactionResponse
+  }
   | {
-      type: "MINED";
-      receipt: ContractTransactionReceipt;
-      transaction: ContractTransactionResponse;
-    }
+    type: "MINED"
+    receipt: ContractTransactionReceipt
+    transaction: ContractTransactionResponse
+  }
   | {
-      type: "FAILED";
-      error: Error;
-    }
+    type: "FAILED"
+    error: Error
+  }
   | {
-      type: "SET_ON";
-      on: TransactionOn;
-    };
+    type: "SET_ON"
+    on: TransactionOn
+  }
 
-type TransactionMachineContext = {
-  on: TransactionOn;
-  error?: Error;
-  receipt?: ContractTransactionReceipt;
-  transaction?: ContractTransactionResponse;
-};
+interface TransactionMachineContext {
+  on: TransactionOn
+  error?: Error
+  receipt?: ContractTransactionReceipt
+  transaction?: ContractTransactionResponse
+}
 
 type TransactionMachineTypestate =
   | {
-      value: "idle";
-      context: TransactionMachineContext;
-    }
+    value: "idle"
+    context: TransactionMachineContext
+  }
   | {
-      value: "pending";
-      context: TransactionMachineContext;
-    }
+    value: "pending"
+    context: TransactionMachineContext
+  }
   | {
-      value: "mining";
-      context: TransactionMachineContext & {
-        transaction: ContractTransactionResponse;
-      };
+    value: "mining"
+    context: TransactionMachineContext & {
+      transaction: ContractTransactionResponse
     }
+  }
   | {
-      value: "mined";
-      context: TransactionMachineContext & {
-        receipt: ContractTransactionReceipt;
-        transaction: ContractTransactionResponse;
-      };
+    value: "mined"
+    context: TransactionMachineContext & {
+      receipt: ContractTransactionReceipt
+      transaction: ContractTransactionResponse
     }
+  }
   | {
-      value: "failed";
-      context: TransactionMachineContext & {
-        error: Error;
-      };
-    };
+    value: "failed"
+    context: TransactionMachineContext & {
+      error: Error
+    }
+  }
 
 export const transactionMachine = createMachine<
   TransactionMachineContext,
@@ -105,7 +105,7 @@ export const transactionMachine = createMachine<
     },
     pending: {
       type: "atomic",
-      entry: [(context) => context.on.pending?.()],
+      entry: [context => context.on.pending?.()],
       on: {
         SIGNED: {
           actions: [assign({ transaction: (_, event) => event.transaction })],
@@ -120,7 +120,7 @@ export const transactionMachine = createMachine<
     mining: {
       type: "atomic",
       entry: [
-        (context) =>
+        context =>
           context.on.mining?.({
             transaction: context.transaction as ContractTransactionResponse,
           }),
@@ -139,7 +139,7 @@ export const transactionMachine = createMachine<
     mined: {
       type: "final",
       entry: [
-        (context) =>
+        context =>
           context.on.mined?.({
             receipt: context.receipt as ContractTransactionReceipt,
             transaction: context.transaction as ContractTransactionResponse,
@@ -149,7 +149,7 @@ export const transactionMachine = createMachine<
     failed: {
       type: "final",
       entry: [
-        (context) =>
+        context =>
           context.on.failed?.({
             error: context.error as Error,
           }),
@@ -161,4 +161,4 @@ export const transactionMachine = createMachine<
       actions: [assign({ on: (_, event) => event.on })],
     },
   },
-});
+})

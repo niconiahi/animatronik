@@ -1,5 +1,5 @@
-import type { LinksFunction } from "@remix-run/cloudflare";
-import { cssBundleHref } from "@remix-run/css-bundle";
+import type { LinksFunction } from "@remix-run/cloudflare"
+import { cssBundleHref } from "@remix-run/css-bundle"
 import {
   Links,
   LiveReload,
@@ -7,14 +7,14 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
-} from "@remix-run/react";
+} from "@remix-run/react"
 
-import styles from "app/styles/app.css";
+import styles from "app/styles/app.css"
 
 export const links: LinksFunction = () => [
   ...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : []),
   { rel: "stylesheet", href: styles },
-];
+]
 
 export default function App() {
   return (
@@ -32,5 +32,5 @@ export default function App() {
         <LiveReload />
       </body>
     </html>
-  );
+  )
 }

@@ -1,104 +1,94 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import type { Web3Provider } from "@ethersproject/providers";
-import { Link, Outlet } from "@remix-run/react";
-import { useAtom } from "jotai";
-import { useEffect } from "react";
-import { accountAtom, setAccountAtom } from "~/atoms/account";
-import { providerAtom } from "~/atoms/provider";
-import AddressDisplay from "~/components/address-display";
-import { useConnectMetamask } from "~/utils/metamask";
-import { TransactionProvider } from "~/providers/transaction-provider";
-import { TransactionToastProvider } from "~/providers/transaction-toast-provider";
-import { setChainReferenceAtom } from "~/atoms/chainReference";
-import { big } from "~/utils/big-number";
-import PrimaryButton from "~/components/primary-button";
-import { json } from "@remix-run/cloudflare";
-import { createEip1102Client } from "~/ethereum/eip-1102";
-import { createJsonRpcClient } from "~/ethereum/json-rpc";
-
-export function loader() {
-  const eip1102Client = createEip1102Client();
-  const accounts = eip1102Client.send(["eth_requestAccounts"]);
-
-  const jsonRpcClient = createJsonRpcClient();
-  const blockNumber = jsonRpcClient.send(["eth_blockNumber"]);
-  const byteData = jsonRpcClient.send(["eth_sendRawTransaction", ["sdfs"]]);
-
-  return json({ name: "nico" });
-}
+import type { Web3Provider } from "@ethersproject/providers"
+import { Link, Outlet } from "@remix-run/react"
+import { useAtom } from "jotai"
+import { useEffect } from "react"
+import { accountAtom, setAccountAtom } from "~/atoms/account"
+import { providerAtom } from "~/atoms/provider"
+import AddressDisplay from "~/components/address-display"
+import { useConnectMetamask } from "~/utils/metamask"
+import { TransactionProvider } from "~/providers/transaction-provider"
+import { TransactionToastProvider } from "~/providers/transaction-toast-provider"
+import { setChainReferenceAtom } from "~/atoms/chainReference"
+import { big } from "~/utils/big-number"
+import PrimaryButton from "~/components/primary-button"
 
 export default function MainLayout() {
-  const connectMetamask = useConnectMetamask();
-  const [account] = useAtom(accountAtom);
-  const [, setAccount] = useAtom(setAccountAtom);
-  const [, setChainReference] = useAtom(setChainReferenceAtom);
-  const [provider] = useAtom(providerAtom);
+  const connectMetamask = useConnectMetamask()
+  const [account] = useAtom(accountAtom)
+  const [, setAccount] = useAtom(setAccountAtom)
+  const [, setChainReference] = useAtom(setChainReferenceAtom)
+  const [provider] = useAtom(providerAtom)
 
   // account
   useEffect(() => {
-    if (!provider) return;
+    if (!provider)
+      return
 
     async function getAccount(provider: Web3Provider) {
-      const accounts = await provider.send("eth_accounts", []);
+      const accounts = await provider.send("eth_accounts", [])
 
-      setAccount(accounts[0]);
+      setAccount(accounts[0])
     }
 
-    getAccount(provider);
-  });
+    getAccount(provider)
+  })
 
   useEffect(() => {
-    if (!provider) return;
+    if (!provider)
+      return
 
     provider.on("accountsChanged", (accounts) => {
       if (accounts.length > 0) {
-        const [account] = accounts;
+        const [account] = accounts
 
-        setAccount(account);
-      } else {
-        setAccount(undefined);
+        setAccount(account)
       }
-    });
+      else {
+        setAccount(undefined)
+      }
+    })
 
     return () => {
       provider.removeListener("accountsChanged", () => {
-        console.log('stop listening to "accountsChanged" event');
-      });
-    };
-  }, [provider]);
+
+      })
+    }
+  }, [provider])
 
   // chain
   useEffect(() => {
-    if (!provider) return;
+    if (!provider)
+      return
 
     async function getChainReference(provider: Web3Provider) {
-      const hexChainId = await provider.send("eth_chainId", []);
-      const chainReference = big(hexChainId).toNumber();
+      const hexChainId = await provider.send("eth_chainId", [])
+      const chainReference = big(hexChainId).toNumber()
 
-      setChainReference(chainReference);
+      setChainReference(chainReference)
     }
 
-    getChainReference(provider);
-  });
+    getChainReference(provider)
+  })
 
   useEffect(() => {
-    if (!provider) return;
+    if (!provider)
+      return
 
     provider.on("chainChanged", (hexChainId: string) => {
-      const chainReference = big(hexChainId).toNumber();
+      const chainReference = big(hexChainId).toNumber()
 
-      setChainReference(chainReference);
-    });
+      setChainReference(chainReference)
+    })
 
     return () => {
       provider.removeListener("chainChanged", () => {
-        console.log('stop listening to "chanChanged" event');
-      });
-    };
-  }, [provider]);
+
+      })
+    }
+  }, [provider])
 
   async function handleConnectMetamaskClick(): Promise<void> {
-    connectMetamask();
+    connectMetamask()
   }
 
   return (
@@ -112,16 +102,18 @@ export default function MainLayout() {
             Animatronik
           </h1>
         </Link>
-        {account ? (
-          <AddressDisplay account={account} />
-        ) : (
-          <PrimaryButton
-            onClick={handleConnectMetamaskClick}
-            className="md: py:auto mr-3 py-[8px] md:mr-10 md:py-[12px]"
-          >
-            Connect
-          </PrimaryButton>
-        )}
+        {account
+          ? (
+            <AddressDisplay account={account} />
+            )
+          : (
+            <PrimaryButton
+              onClick={handleConnectMetamaskClick}
+              className="md: py:auto mr-3 py-[8px] md:mr-10 md:py-[12px]"
+            >
+              Connect
+            </PrimaryButton>
+            )}
       </header>
       <main className="isolation flex h-full min-h-screen w-full items-center justify-center bg-gray-50 pt-20 pb-14">
         <div className="flex w-full flex-col items-center justify-center self-center py-1 px-4 md:w-4/6 lg:w-3/4">
@@ -133,5 +125,5 @@ export default function MainLayout() {
         </div>
       </main>
     </>
-  );
+  )
 }

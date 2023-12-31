@@ -1,5 +1,5 @@
-import { Link } from "@remix-run/react";
-import PrimaryButton from "~/components/primary-button";
+import { Link } from "@remix-run/react"
+import PrimaryButton from "~/components/primary-button"
 
 export default function Index() {
   return (
@@ -11,5 +11,5 @@ export default function Index() {
         <PrimaryButton className="w-full">Create one</PrimaryButton>
       </Link>
     </main>
-  );
+  )
 }

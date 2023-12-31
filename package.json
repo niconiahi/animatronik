@@ -1,9 +1,15 @@
 {
   "name": "animatronik",
+  "type": "module",
   "private": true,
   "sideEffects": false,
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "scripts": {
     "build": "remix build",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
     "dev": "remix dev --manual -c \"npm run start\"",
     "start": "wrangler pages dev --compatibility-date=2023-06-21 ./public",
     "typecheck": "tsc",
@@ -28,6 +34,7 @@
     "xstate": "^4.38.2"
   },
   "devDependencies": {
+    "@antfu/eslint-config": "^2.2.2",
     "@cloudflare/workers-types": "^4.20230518.0",
     "@remix-run/dev": "^2.0.1",
     "@remix-run/eslint-config": "^2.0.1",
@@ -35,7 +42,7 @@
     "@types/react": "^18.2.20",
     "@types/react-dom": "^18.2.7",
     "autoprefixer": "^10.4.16",
-    "eslint": "^8.38.0",
+    "eslint": "^8.55.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-prettier": "^5.0.0",
     "ethers": "^6.7.1",
@@ -44,8 +51,5 @@
     "typescript": "^5.1.0",
     "vitest": "^0.34.6",
     "wrangler": "^3.1.1"
-  },
-  "engines": {
-    "node": ">=18.0.0"
   }
 }

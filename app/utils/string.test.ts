@@ -1,19 +1,19 @@
-import { expect, it, describe } from "vitest";
+import { describe, expect, it } from "vitest"
 
-import { firstLetterToUpper, truncate } from "./string";
+import { firstLetterToUpper, truncate } from "./string"
 
 describe("helpers/string", () => {
   it("should upper first letter", () => {
-    const word = "hello world";
-    const upperWord = "Hello world";
+    const word = "hello world"
+    const upperWord = "Hello world"
 
-    expect(firstLetterToUpper(word)).toMatch(upperWord);
-  });
+    expect(firstLetterToUpper(word)).toMatch(upperWord)
+  })
 
   it("should truncate word", () => {
-    const word = "hello world, this is Nicolas";
-    const truncatedWord = "hello ...olas";
+    const word = "hello world, this is Nicolas"
+    const truncatedWord = "hello ...olas"
 
-    expect(truncate(word)).toMatch(truncatedWord);
-  });
-});
+    expect(truncate(word)).toMatch(truncatedWord)
+  })
+})

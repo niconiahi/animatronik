@@ -5,8 +5,12 @@ import { type PlatformProxy } from "wrangler";
 // into the global `Env` interface.
 // Need this empty interface so that typechecking passes
 // even if no `wrangler.toml` exists.
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-interface Env {}
+interface Env {
+  PINATA_JWT: string;
+  GATEWAY_URL: string;
+  ENVIRONMENT: string;
+  ANIMATRONIK_SEPOLIA_ADDRESS: string;
+}
 
 type Cloudflare = Omit<PlatformProxy<Env>, "dispose">;
 

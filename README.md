@@ -1,48 +1,24 @@
-# Welcome to Remix + Vite!
+### Expectations
+In this repo you'll learn how to setup a [ERC721 contract](https://docs.openzeppelin.com/contracts/3.x/erc721) starting from [Remix's @cloudflare/pages template](https://remix.run/docs/en/main/guides/vite#cloudflare). You will find the use of state machines to control state flow of the transaction sent to the blockchain. You will also see that the use of React's useState is minimal and instead the use Jotai which is an implementation of signals for React, including atoms states and derived states from those atoms.
 
-📖 See the [Remix docs](https://remix.run/docs) and the [Remix Vite docs](https://remix.run/docs/en/main/future/vite) for details on supported features.
+### Demo
+In this demo you can see the Animatronik creation flow and also see a page where all of them are showcased - [demo](https://animatronik.pages.dev/)
 
-## Typegen
+### Files to pay attention
+1. [atoms/signer.tsx](./app/atoms/signer.ts)
+2. [atoms/account.tsx](./app/atoms/account.ts)
+3. [atoms/provider.tsx](./app/atoms/provider.ts)
+4. [atoms/chainReference.tsx](./app/atoms/chainReference.ts)
+5. [machines/transaction.tsx](./app/machines/transaction.ts)
+6. [routes/_dapp.tsx](./app/routes/_dapp.tsx)
+7. [routes/_dapp.add.tsx](./app/routes/_dapp.add.tsx)
+8. [routes/_dapp.showcase.tsx](./app/routes/_dapp.showcase.tsx)
+9. [utils/hashing.ts](./app/utils/hashing.ts)
+10. [utils/style.ts](./app/utils/style.ts)
+11. [utils/animatronik.ts](./app/utils/animatronik.ts)
+12. [utils/metamask.ts](./app/utils/metamask.ts)
+13. [utils/provide.ts](./app/utils/provider.ts)
 
-Generate types for your Cloudflare bindings in `wrangler.toml`:
-
-```sh
-npm run typegen
-```
-
-You will need to rerun typegen whenever you make changes to `wrangler.toml`.
-
-## Development
-
-Run the Vite dev server:
-
-```sh
-npm run dev
-```
-
-To run Wrangler:
-
-```sh
-npm run build
-npm run start
-```
-
-## Deployment
-
-> [!WARNING]  
-> Cloudflare does _not_ use `wrangler.toml` to configure deployment bindings.
-> You **MUST** [configure deployment bindings manually in the Cloudflare dashboard][bindings].
-
-First, build your app for production:
-
-```sh
-npm run build
-```
-
-Then, deploy your app to Cloudflare Pages:
-
-```sh
-npm run deploy
-```
-
-[bindings]: https://developers.cloudflare.com/pages/functions/bindings/
+### Links
+- [ERC721 contract](https://docs.openzeppelin.com/contracts/3.x/erc721/)
+- [Jotai](https://jotai.org/)

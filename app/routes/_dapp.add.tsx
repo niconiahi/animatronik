@@ -1,23 +1,23 @@
-import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/cloudflare";
-import { useNavigation, Form, useActionData, useLoaderData } from "@remix-run/react";
-import { json } from "@remix-run/cloudflare";
-import { useAtom } from "jotai";
-import { accountAtom } from "~/atoms/account";
-import { chainReferenceAtom } from "~/atoms/chainReference";
-import PrimaryButton from "~/components/primary-button";
-import { useTransaction } from "~/providers/transaction-provider";
-import { getClassname } from "~/utils/classname";
-import { useAnimatronikContract } from "~/utils/animatronik";
-import { useStyle } from "~/utils/style";
-import { ChainReference } from "~/ethereum/chain";
-import { getEnv } from "~/utils/env.server";
+import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/cloudflare"
+import { Form, useActionData, useLoaderData, useNavigation } from "@remix-run/react"
+import { json } from "@remix-run/cloudflare"
+import { useAtom } from "jotai"
+import { accountAtom } from "~/atoms/account"
+import { chainReferenceAtom } from "~/atoms/chainReference"
+import PrimaryButton from "~/components/primary-button"
+import { useTransaction } from "~/providers/transaction-provider"
+import { getClassname } from "~/utils/classname"
+import { useAnimatronikContract } from "~/utils/animatronik"
+import { useStyle } from "~/utils/style"
+import { ChainReference } from "~/ethereum/chain"
+import { getEnv } from "~/utils/env.server"
 
 export async function action({
   request,
-  context
+  context,
 }: ActionFunctionArgs) {
   const env = getEnv(context)
-  const formData = await request.formData();
+  const formData = await request.formData()
 
   switch (formData.get("_action")) {
     case "example": {
@@ -26,19 +26,17 @@ export async function action({
         svg: SVG_STRIPES,
         cid: null,
         animatronik: null,
-      });
+      })
     }
     case "preview": {
-      const css = formData.get("css");
-      const svg = formData.get("svg");
+      const css = formData.get("css")
+      const svg = formData.get("svg")
 
-      if (typeof css !== "string" || !css) {
-        throw json({ error: "CSS must be provided" }, { status: 404 });
-      }
+      if (typeof css !== "string" || !css)
+        throw json({ error: "CSS must be provided" }, { status: 404 })
 
-      if (typeof svg !== "string" || !svg) {
-        throw json({ error: "SVG must be provided" }, { status: 404 });
-      }
+      if (typeof svg !== "string" || !svg)
+        throw json({ error: "SVG must be provided" }, { status: 404 })
 
       return json({
         css,
@@ -48,7 +46,7 @@ export async function action({
           css,
           svg,
         },
-      });
+      })
     }
     case "clear": {
       return json({
@@ -56,54 +54,52 @@ export async function action({
         svg: "",
         cid: null,
         animatronik: null,
-      });
+      })
     }
     case "cid": {
-      const css = formData.get("css");
-      const svg = formData.get("svg");
+      const css = formData.get("css")
+      const svg = formData.get("svg")
 
-      if (typeof css !== "string" || !css) {
-        throw json({ error: "CSS must be provided" }, { status: 404 });
-      }
+      if (typeof css !== "string" || !css)
+        throw json({ error: "CSS must be provided" }, { status: 404 })
 
-      if (typeof svg !== "string" || !svg) {
-        throw json({ error: "SVG must be provided" }, { status: 404 });
-      }
+      if (typeof svg !== "string" || !svg)
+        throw json({ error: "SVG must be provided" }, { status: 404 })
 
       const res = await fetch(
         "https://api.pinata.cloud/pinning/pinJSONToIPFS",
         {
           method: "POST",
           headers: {
-            Authorization: `Bearer ${env.PINATA_JWT}`,
-            "Content-Type": "application/json"
+            "Authorization": `Bearer ${env.PINATA_JWT}`,
+            "Content-Type": "application/json",
           },
           body: JSON.stringify({
             pinataContent: {
               css,
-              svg
+              svg,
             },
             pinataMetadata: {
-              name: "File name"
+              name: "File name",
             },
             pinataOptions: {
-              cidVersion: 0
-            }
+              cidVersion: 0,
+            },
           }),
-        }
-      );
-      const { IpfsHash } = (await res.json()) as { IpfsHash: string };
+        },
+      )
+      const { IpfsHash } = (await res.json()) as { IpfsHash: string }
 
       return json({
         css,
         svg,
         cid: IpfsHash,
         animatronik: null,
-      });
+      })
     }
 
     default: {
-      throw new Error("Unknown action");
+      throw new Error("Unknown action")
     }
   }
 }
@@ -114,14 +110,14 @@ export function loader({ context }: LoaderFunctionArgs) {
 }
 
 export default function AnimatronikPage() {
-  const { address } = useLoaderData<typeof loader>();
-  const actionData = useActionData<typeof action>();
-  useStyle(actionData?.animatronik ? [actionData.animatronik] : []);
-  const navigation = useNavigation();
-  const isGeneratingHash =
-    navigation.formData &&
-    navigation.formData.get("_action") === "cid" &&
-    navigation.state === "submitting";
+  const { address } = useLoaderData<typeof loader>()
+  const actionData = useActionData<typeof action>()
+  useStyle(actionData?.animatronik ? [actionData.animatronik] : [])
+  const navigation = useNavigation()
+  const isGeneratingHash
+    = navigation.formData
+    && navigation.formData.get("_action") === "cid"
+    && navigation.state === "submitting"
 
   return (
     <>
@@ -187,71 +183,77 @@ export default function AnimatronikPage() {
           </PrimaryButton>
           <MintButton address={address} />
         </section>
-        {actionData?.animatronik ? (
-          <section className="absolute top-1/4 right-10 flex flex-col space-y-4">
-            <ul className="list-none">
-              <li
-                key={actionData.animatronik.svg.slice(0, 30)}
-                className="h-60 w-60 overflow-hidden rounded-4xl border-2 border-black bg-white md:-right-10 [&>img]:h-full [&>img]:w-full"
-              >
-                <img
-                  src={`data:image/svg+xml;utf8,${actionData.animatronik.svg}`}
-                  className={getClassname(actionData.animatronik.css)}
-                />
-              </li>
-            </ul>
-            <PrimaryButton type="submit" name="_action" value="clear">
-              Clear
-            </PrimaryButton>
-          </section>
-        ) : null}
+        {actionData?.animatronik
+          ? (
+            <section className="absolute top-1/4 right-10 flex flex-col space-y-4">
+              <ul className="list-none">
+                <li
+                  key={actionData.animatronik.svg.slice(0, 30)}
+                  className="h-60 w-60 overflow-hidden rounded-4xl border-2 border-black bg-white md:-right-10 [&>img]:h-full [&>img]:w-full"
+                >
+                  <img
+                    src={`data:image/svg+xml;utf8,${actionData.animatronik.svg}`}
+                    className={getClassname(actionData.animatronik.css)}
+                  />
+                </li>
+              </ul>
+              <PrimaryButton type="submit" name="_action" value="clear">
+                Clear
+              </PrimaryButton>
+            </section>
+            )
+          : null}
       </Form>
-      {isGeneratingHash ? (
-        <span className="fixed right-4 bottom-4 animate-bounce rounded-2xl border-2 border-gray-500 bg-white p-2 font-semibold uppercase">
-          Generating hash
-        </span>
-      ) : null}
+      {isGeneratingHash
+        ? (
+          <span className="fixed right-4 bottom-4 animate-bounce rounded-2xl border-2 border-gray-500 bg-white p-2 font-semibold uppercase">
+            Generating hash
+          </span>
+          )
+        : null}
     </>
-  );
+  )
 }
 
 function MintButton({ address }: { address: string }) {
-  const [account] = useAtom(accountAtom);
-  const [chainReference] = useAtom(chainReferenceAtom);
-  const animatronikContract = useAnimatronikContract({ address });
-  const actionData = useActionData<typeof action>();
-  const { sendTransaction } = useTransaction();
-  const isMintDisabled =
-    !actionData?.css || !actionData?.svg || !actionData?.cid;
+  const [account] = useAtom(accountAtom)
+  const [chainReference] = useAtom(chainReferenceAtom)
+  const animatronikContract = useAnimatronikContract({ address })
+  const actionData = useActionData<typeof action>()
+  const { sendTransaction } = useTransaction()
+  const isMintDisabled
+    = !actionData?.css || !actionData?.svg || !actionData?.cid
 
   async function handleMintAnimatronik() {
     if (
-      account === undefined ||
-      chainReference === undefined ||
-      animatronikContract === undefined
+      account === undefined
+      || chainReference === undefined
+      || animatronikContract === undefined
     ) {
-      alert("You need to connect Metamask");
+      alert("You need to connect Metamask")
 
-      return;
+      return
     }
 
     if (chainReference !== ChainReference.Sepolia) {
       alert(
         "This section works on Optimism Goerli. Try changing to it from Metamask",
-      );
+      )
 
-      return;
+      return
     }
 
-    if (isMintDisabled) return;
+    if (isMintDisabled)
+      return
 
-    const { cid } = actionData;
+    const { cid } = actionData
 
-    if (typeof cid !== "string") return;
-    console.log('account', account)
-    console.log('cid', cid)
+    if (typeof cid !== "string")
+      return
+    console.log("account", account)
+    console.log("cid", cid)
 
-    sendTransaction(() => animatronikContract.safeMint(account, cid));
+    sendTransaction(() => animatronikContract.safeMint(account, cid))
   }
 
   return (
@@ -262,7 +264,7 @@ function MintButton({ address }: { address: string }) {
     >
       Mint
     </PrimaryButton>
-  );
+  )
 }
 
 const CSS_STRIPES = `.stripes {
@@ -303,7 +305,7 @@ const CSS_STRIPES = `.stripes {
   100% {
     transform: translate(0, 0) rotate(360deg);
   }
-}`;
+}`
 
 const SVG_STRIPES = `<svg viewBox='0 0 2605 2460' xmlns='http://www.w3.org/2000/svg'>
   <path d='M1302.5 1230.6 1 1308.4l1.5-176.6 1300 97v1.8Z'></path>
@@ -329,4 +331,4 @@ const SVG_STRIPES = `<svg viewBox='0 0 2605 2460' xmlns='http://www.w3.org/2000/
   <path d='m1301 1230.4 1040.4 743.3 101.8-148.1L1302 1229l-1 1.4Z'></path>
   <path d='m1301.2 1230.5 1219.1 437.7 53.8-169.1-1272.3-270.3-.6 1.7Z'></path>
   <path d='m1301.5 1230.6 1300 97 1.5-176.6-1301.5 77.8v1.8Z'></path>
-</svg>`;
+</svg>`

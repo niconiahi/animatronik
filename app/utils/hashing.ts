@@ -24,7 +24,8 @@ export function hashClassname(css: string) {
     const classNameHash = `${classNameMatch[0].trim()}-${getRandomString()}`
 
     return css.replace(CLASS_NAME_REGEX, `${classNameHash} `)
-  } else {
+  }
+  else {
     throw json({ error: "No class name found", status: 404 })
   }
 }

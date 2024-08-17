@@ -10,16 +10,14 @@ export function useStyle(
   animatroniks: Array<Pick<Animatronik, "css" | "svg">>,
 ) {
   useEffect(() => {
-    if (typeof window === "undefined" || animatroniks.length === 0) {
+    if (typeof window === "undefined" || animatroniks.length === 0)
       return
-    }
 
     const STYLE_ID = "animatronik-style"
     const prevStyles = document.getElementById(STYLE_ID)
 
-    if (prevStyles) {
+    if (prevStyles)
       prevStyles.remove()
-    }
 
     const style = document.createElement("style")
     const css = animatroniks.map(({ css }) => css).join("\n\n")

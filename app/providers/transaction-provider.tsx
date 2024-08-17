@@ -22,17 +22,17 @@ const TRANSACTION_STATE = {
 type ObjectValues<T> = T[keyof T]
 export type TransactionStateType = ObjectValues<typeof TRANSACTION_STATE>
 
-type TransactionStateMining = {
+interface TransactionStateMining {
   transaction: ContractTransactionResponse
 }
 export type TransactionOnMining = (context: TransactionStateMining) => void
 
-type TransactionStateFailed = {
+interface TransactionStateFailed {
   error: Error
 }
 export type TransactionOnFailed = (context: TransactionStateFailed) => void
 
-type TransactionStateMined = {
+interface TransactionStateMined {
   receipt: ContractTransactionReceipt
   transaction: ContractTransactionResponse
 }
@@ -72,10 +72,10 @@ export const TransactionProvider: FC<{ children: ReactElement }> = ({
       const receipt = await transaction.wait()
       console.log("receipt", receipt)
 
-      if (receipt) {
+      if (receipt)
         send({ type: "MINED", receipt, transaction })
-      }
-    } catch (error) {
+    }
+    catch (error) {
       console.log(error, "error")
       // @ts-expect-error correct this typing, should be fine
       send({ type: "FAILED", error })
@@ -96,9 +96,9 @@ export function useTransaction({
 }: {
   messages?: Partial<TransactionToastMessages>
 } = {}): {
-  sendTransaction: (transactionFunction: TransactionFunction) => Promise<void>
-  transactionService: TransactionMachineService
-} {
+    sendTransaction: (transactionFunction: TransactionFunction) => Promise<void>
+    transactionService: TransactionMachineService
+  } {
   const transactionContext = useContext(TransactionContext)
 
   if (!transactionContext) {

@@ -19,19 +19,19 @@ const TRANSACTION_STATE = {
   Pending: "pending" as const,
 }
 
-type Titles = {
+interface Titles {
   [TRANSACTION_STATE.Mined]: string
   [TRANSACTION_STATE.Failed]: string
   [TRANSACTION_STATE.Mining]: string
   [TRANSACTION_STATE.Pending]: string
 }
-type Descriptions = {
+interface Descriptions {
   [TRANSACTION_STATE.Mined]: string
   [TRANSACTION_STATE.Failed]: string
   [TRANSACTION_STATE.Mining]: string
   [TRANSACTION_STATE.Pending]: string
 }
-export type TransactionToastMessages = {
+export interface TransactionToastMessages {
   titles: Titles
   descriptions: Descriptions
 }
@@ -51,7 +51,7 @@ const DEFAULT_OPTIONS = {
   },
 }
 
-type Value = {
+interface Value {
   composeMessages: (userOptions: Partial<TransactionToastMessages>) => void
 }
 

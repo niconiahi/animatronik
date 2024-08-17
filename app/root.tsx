@@ -4,8 +4,8 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
-} from "@remix-run/react";
-import { LinksFunction } from "@remix-run/cloudflare";
+} from "@remix-run/react"
+import type { LinksFunction } from "@remix-run/cloudflare"
 import a11yStyles from "~/styles/a11y.css?url"
 import globalStyles from "~/styles/global.css?url"
 import tailwindStyles from "~/styles/tailwind.css?url"
@@ -33,9 +33,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Scripts />
       </body>
     </html>
-  );
+  )
 }
 
 export default function App() {
-  return <Outlet />;
+  return <Outlet />
 }

@@ -1,6 +1,5 @@
 import { Link, useLoaderData } from "@remix-run/react"
 import { json } from "@remix-run/cloudflare"
-import { getAnimatroniks, type Animatronik } from "~/models/animatronik.server"
 
 // import { getAnimatroniks } from "~/models/animatronik.server";
 // import { hashClassname, hashKeyframe } from "~/utils/hashing";

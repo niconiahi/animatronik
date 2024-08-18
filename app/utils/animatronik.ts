@@ -1,9 +1,10 @@
+import type { JsonRpcProvider } from "@ethersproject/providers"
 import type { ethers } from "ethers"
 import { useAtom } from "jotai"
-import type { JsonRpcProvider } from "@ethersproject/providers"
+
+import { signerAtom } from "~/atoms/signer"
 import { AnimatronikContractAbi__factory as animatronikContract } from "~/generated/contracts/types"
 import type { AnimatronikContractAbi as AnimatronikContract } from "~/generated/contracts/types/contracts/Animatronik.sol/AnimatronikContractAbi"
-import { signerAtom } from "~/atoms/signer"
 
 export function useAnimatronikContract({
   address,
@@ -12,8 +13,9 @@ export function useAnimatronikContract({
 }): AnimatronikContract | undefined {
   const [signer] = useAtom(signerAtom)
 
-  if (!signer)
+  if (!signer) {
     return undefined
+  }
 
   return animatronikContract.connect(
     address,

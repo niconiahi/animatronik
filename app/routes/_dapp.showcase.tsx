@@ -1,11 +1,11 @@
-import { Link, useLoaderData } from "@remix-run/react"
 import { json } from "@remix-run/cloudflare"
+import { Link, useLoaderData } from "@remix-run/react"
 
 // import { getAnimatroniks } from "~/models/animatronik.server";
 // import { hashClassname, hashKeyframe } from "~/utils/hashing";
+import PrimaryButton from "~/components/primary-button"
 import { getClassname } from "~/utils/classname"
 import { useStyle } from "~/utils/style"
-import PrimaryButton from "~/components/primary-button"
 
 export async function loader() {
   // const animatroniks = getAnimatroniks()

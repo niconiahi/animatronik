@@ -3,13 +3,14 @@ import { useActor } from "@xstate/react"
 import { atom, useAtom } from "jotai"
 import type { FC, ReactElement } from "react"
 import { createContext, useContext, useEffect, useRef } from "react"
+
 import IconButton from "~/components/icon-button"
 import X from "~/icons/x"
 import type { TransactionMachineState } from "~/machines/transaction"
-import { getErrorMessage } from "~/utils/error-message"
 import {
   useTransaction,
 } from "~/providers/transaction-provider"
+import { getErrorMessage } from "~/utils/error-message"
 
 const TRANSACTION_STATE = {
   Idle: "idle" as const,
@@ -52,6 +53,7 @@ const DEFAULT_OPTIONS = {
 }
 
 interface Value {
+  // eslint-disable-next-line no-unused-vars
   composeMessages: (userOptions: Partial<TransactionToastMessages>) => void
 }
 
@@ -110,8 +112,9 @@ export function useTransactionToast({
   const { composeMessages } = transactionToastContext
 
   useEffect(() => {
-    if (!messages)
+    if (!messages) {
       return
+    }
 
     if (!hasSetMessages.current) {
       composeMessages(messages)
@@ -136,17 +139,21 @@ function Toast({
     state: TransactionMachineState,
     titles: Titles,
   ): string | undefined {
-    if (state.value === "mined")
+    if (state.value === "mined") {
       return titles.mined
+    }
 
-    if (state.value === "mining")
+    if (state.value === "mining") {
       return titles.mining
+    }
 
-    if (state.value === "pending")
+    if (state.value === "pending") {
       return titles.pending
+    }
 
-    if (state.value === "failed")
+    if (state.value === "failed") {
       return titles.failed
+    }
 
     return undefined
   }
@@ -155,20 +162,24 @@ function Toast({
     state: TransactionMachineState,
     descriptions: Descriptions,
   ): string | undefined {
-    if (state.value === "mined")
+    if (state.value === "mined") {
       return descriptions.mined
+    }
 
-    if (state.value === "mining")
+    if (state.value === "mining") {
       return descriptions.mining
+    }
 
-    if (state.value === "pending")
+    if (state.value === "pending") {
       return descriptions.pending
+    }
 
     if (state.value === "failed") {
       const errorMessage = getErrorMessage(state.context?.error)
 
-      if (errorMessage.includes("user rejected transaction"))
+      if (errorMessage.includes("user rejected transaction")) {
         return "The request was rejected by the user"
+      }
 
       return descriptions.failed
     }
@@ -176,8 +187,9 @@ function Toast({
     return undefined
   }
 
-  if (state.value === TRANSACTION_STATE.Idle)
+  if (state.value === TRANSACTION_STATE.Idle) {
     return null
+  }
 
   const title = getTitle(state, titles)
   const description = getDescription(state, descriptions)

@@ -2,15 +2,16 @@ import type { Web3Provider } from "@ethersproject/providers"
 import { Link, Outlet } from "@remix-run/react"
 import { useAtom } from "jotai"
 import { useEffect } from "react"
+
 import { accountAtom, setAccountAtom } from "~/atoms/account"
+import { setChainReferenceAtom } from "~/atoms/chainReference"
 import { providerAtom } from "~/atoms/provider"
 import AddressDisplay from "~/components/address-display"
-import { useConnectMetamask } from "~/utils/metamask"
+import PrimaryButton from "~/components/primary-button"
 import { TransactionProvider } from "~/providers/transaction-provider"
 import { TransactionToastProvider } from "~/providers/transaction-toast-provider"
-import { setChainReferenceAtom } from "~/atoms/chainReference"
 import { big } from "~/utils/big-number"
-import PrimaryButton from "~/components/primary-button"
+import { useConnectMetamask } from "~/utils/metamask"
 
 export default function MainLayout() {
   const connectMetamask = useConnectMetamask()
@@ -21,8 +22,9 @@ export default function MainLayout() {
 
   // account
   useEffect(() => {
-    if (!provider)
+    if (!provider) {
       return
+    }
 
     async function getAccount(provider: Web3Provider) {
       const accounts = await provider.send("eth_accounts", [])
@@ -34,16 +36,16 @@ export default function MainLayout() {
   })
 
   useEffect(() => {
-    if (!provider)
+    if (!provider) {
       return
+    }
 
     provider.on("accountsChanged", (accounts) => {
       if (accounts.length > 0) {
         const [account] = accounts
 
         setAccount(account)
-      }
-      else {
+      } else {
         setAccount(undefined)
       }
     })
@@ -57,8 +59,9 @@ export default function MainLayout() {
 
   // chain
   useEffect(() => {
-    if (!provider)
+    if (!provider) {
       return
+    }
 
     async function getChainReference(provider: Web3Provider) {
       const hexChainId = await provider.send("eth_chainId", [])
@@ -71,8 +74,9 @@ export default function MainLayout() {
   })
 
   useEffect(() => {
-    if (!provider)
+    if (!provider) {
       return
+    }
 
     provider.on("chainChanged", (hexChainId: string) => {
       const chainReference = big(hexChainId).toNumber()

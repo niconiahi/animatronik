@@ -1,4 +1,5 @@
 import { Link } from "@remix-run/react"
+
 import PrimaryButton from "~/components/primary-button"
 
 export default function Index() {

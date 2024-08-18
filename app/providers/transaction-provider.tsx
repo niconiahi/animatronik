@@ -1,10 +1,11 @@
-import type { FC, ReactElement } from "react"
 import { useActor, useInterpret } from "@xstate/react"
-import { createContext, useContext } from "react"
 import type {
   ContractTransactionReceipt,
   ContractTransactionResponse,
 } from "ethers"
+import type { FC, ReactElement } from "react"
+import { createContext, useContext } from "react"
+
 import type { TransactionMachineService } from "~/machines/transaction"
 import { transactionMachine } from "~/machines/transaction"
 import type { TransactionToastMessages } from "~/providers/transaction-toast-provider"
@@ -25,17 +26,20 @@ export type TransactionStateType = ObjectValues<typeof TRANSACTION_STATE>
 interface TransactionStateMining {
   transaction: ContractTransactionResponse
 }
+// eslint-disable-next-line no-unused-vars
 export type TransactionOnMining = (context: TransactionStateMining) => void
 
 interface TransactionStateFailed {
   error: Error
 }
+// eslint-disable-next-line no-unused-vars
 export type TransactionOnFailed = (context: TransactionStateFailed) => void
 
 interface TransactionStateMined {
   receipt: ContractTransactionReceipt
   transaction: ContractTransactionResponse
 }
+// eslint-disable-next-line no-unused-vars
 export type TransactionOnMined = (context: TransactionStateMined) => void
 
 export type TransactionOnPending = () => void
@@ -48,9 +52,9 @@ export type TransactionOn = Partial<{
 }>
 
 export const TransactionContext = createContext<{
+  // eslint-disable-next-line no-unused-vars
   sendTransaction: (transactionFunction: TransactionFunction) => Promise<void>
   transactionService: TransactionMachineService
-  // @ts-expect-error It's a good practice not to give a default value even though the linter tells you so
 }>({})
 
 export const TransactionProvider: FC<{ children: ReactElement }> = ({
@@ -67,17 +71,16 @@ export const TransactionProvider: FC<{ children: ReactElement }> = ({
 
       const transaction = await transactionFunction()
       send({ type: "SIGNED", transaction })
-      console.log("transaction", transaction)
+      // console.log("transaction", transaction)
 
       const receipt = await transaction.wait()
-      console.log("receipt", receipt)
+      // console.log("receipt", receipt)
 
-      if (receipt)
+      if (receipt) {
         send({ type: "MINED", receipt, transaction })
-    }
-    catch (error) {
-      console.log(error, "error")
-      // @ts-expect-error correct this typing, should be fine
+      }
+    } catch (error) {
+      // console.log(error, "error")
       send({ type: "FAILED", error })
     }
   }
@@ -96,6 +99,7 @@ export function useTransaction({
 }: {
   messages?: Partial<TransactionToastMessages>
 } = {}): {
+    // eslint-disable-next-line no-unused-vars
     sendTransaction: (transactionFunction: TransactionFunction) => Promise<void>
     transactionService: TransactionMachineService
   } {

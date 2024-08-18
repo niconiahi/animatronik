@@ -8,10 +8,10 @@ export default antfu(
     formatters: {
       markdown: "prettier",
     },
-    ignores: ["app/generated/db.ts", "adapters/**"],
+    ignores: ["app/generated/**", "adapters/**"],
   },
   {
-    files: ["**/*.ts,.tsx"],
+    files: ["**/*.ts", "**/*.tsx"],
     rules: {
       "style/brace-style": ["error", "1tbs", { allowSingleLine: false }],
       "ts/consistent-type-imports": [

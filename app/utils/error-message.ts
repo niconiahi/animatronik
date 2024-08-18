@@ -12,13 +12,13 @@ function isErrorWithMessage(error: unknown): error is ErrorWithMessage {
 }
 
 function toErrorWithMessage(maybeError: unknown): ErrorWithMessage {
-  if (isErrorWithMessage(maybeError))
+  if (isErrorWithMessage(maybeError)) {
     return maybeError
+  }
 
   try {
     return new Error(JSON.stringify(maybeError))
-  }
-  catch {
+  } catch {
     // fallback in case there's an error stringifying the maybeError
     // like with circular references for example.
     return new Error(String(maybeError))

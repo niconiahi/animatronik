@@ -3,9 +3,13 @@ import { atom, useSetAtom } from "jotai"
 import { useEffect } from "react"
 
 type Callback<Value> = (
+// eslint-disable-next-line no-unused-vars
   get: Getter,
+// eslint-disable-next-line no-unused-vars
   set: Setter,
+// eslint-disable-next-line no-unused-vars
   newVal: Value,
+// eslint-disable-next-line no-unused-vars
   prevVal: Value,
 ) => void
 

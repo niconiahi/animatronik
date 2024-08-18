@@ -1,4 +1,5 @@
 import type { ReactElement } from "react"
+
 import { truncate } from "~/utils/string"
 
 export default function AddressDisplay({

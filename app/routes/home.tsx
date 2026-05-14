@@ -1,17 +1,16 @@
-import type { Route } from "./+types/home";
-import { Welcome } from "../welcome/welcome";
+import { Link } from "react-router"
 
-export function meta({}: Route.MetaArgs) {
-  return [
-    { title: "New React Router App" },
-    { name: "description", content: "Welcome to React Router!" },
-  ];
-}
+import PrimaryButton from "~/components/primary-button"
 
-export function loader({ context }: Route.LoaderArgs) {
-  return { message: context.cloudflare.env.VALUE_FROM_CLOUDFLARE };
-}
-
-export default function Home({ loaderData }: Route.ComponentProps) {
-  return <Welcome message={loaderData.message} />;
+export default function Home() {
+  return (
+    <main className="isolation flex h-full min-h-screen w-full items-center justify-center bg-gray-50 space-x-2">
+      <Link to="/showcase">
+        <PrimaryButton>See showcase</PrimaryButton>
+      </Link>
+      <Link to="/add">
+        <PrimaryButton>Create one</PrimaryButton>
+      </Link>
+    </main>
+  )
 }

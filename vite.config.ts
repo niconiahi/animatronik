@@ -11,4 +11,12 @@ export default defineConfig({
     reactRouter(),
     tsconfigPaths(),
   ],
+  server: {
+    watch: {
+      ignored: ["**/contracts/lib/**", "**/contracts/out/**"],
+    },
+  },
+  resolve: {
+    dedupe: ["react", "react-dom", "react-router"],
+  },
 });

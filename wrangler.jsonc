@@ -1,9 +1,11 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "react-router-app",
+  "name": "animatronik",
   "compatibility_date": "2025-04-04",
   "main": "./workers/app.ts",
+  "compatibility_flags": ["nodejs_compat"],
   "vars": {
-    "VALUE_FROM_CLOUDFLARE": "Hello from Cloudflare"
+    "ANIMATRONIK_SEPOLIA_ADDRESS": "0x0B472a2Ea815Fb7eC54338154E7fE59aeddFED52",
+    "ENVIRONMENT": "development"
   }
 }

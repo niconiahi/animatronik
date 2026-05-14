@@ -1,0 +1,54 @@
+:root {
+  --stripe-height: 0.2rem;
+}
+
+.font-rubik {
+  font-family: 'Rubik Mono One', sans-serif;
+}
+
+html {
+  color-scheme: only light;
+}
+
+body {
+  display: flex;
+  font-family: 'Source Code Pro', sans-serif;
+  flex-direction: column;
+}
+
+@font-face {
+  font-family: "Source Code Pro";
+  src: url("/fonts/SourceCodePro-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Source Code Pro";
+  src: url("/fonts/SourceCodePro-SemiBold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Rubik Mono One";
+  src: url("/fonts/RubikMonoOne-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+.text-stroke-1 {
+  -webkit-text-stroke: 1px hsl(0, 0%, 8%);
+}
+
+.text-shadow {
+  text-shadow: 0 2px 0 hsl(0, 0%, 8%);
+  --text-border-width: 1px;
+  -webkit-text-fill-color: hsl(0, 0%, 95%);
+  -webkit-text-stroke-width: var(--text-border-width);
+  -webkit-text-stroke-color: hsl(0, 0%, 8%);
+}
+

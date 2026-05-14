@@ -1,0 +1,28 @@
+.route-transition {
+  animation-duration: 10s;
+  animation-name: routeloading;
+  animation-timing-function: ease-out;
+}
+
+.move-up:enabled {
+  transition-property: box-shadow, transform;
+  transition-duration: 150ms;
+  transition-timing-function: ease-in-out;
+  will-change: box-shadow, transform;
+  box-shadow: 0 4px 0 hsl(0, 0%, 8%);
+}
+
+.move-up:hover:enabled {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 0 hsl(0, 0%, 8%);
+}
+
+@keyframes routeloading {
+  from {
+    width: 0%;
+  }
+
+  to {
+    width: 100%;
+  }
+}

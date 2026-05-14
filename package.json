@@ -12,26 +12,14 @@
     "preview": "npm run build && vite preview",
     "typecheck": "npm run cf-typegen && react-router typegen && tsc -b"
   },
-  "pnpm": {
-    "overrides": {
-      "@ethernauta/abi": "link:../ethernauta/packages/abi",
-      "@ethernauta/chain": "link:../ethernauta/packages/chain",
-      "@ethernauta/cli": "link:../ethernauta/packages/cli",
-      "@ethernauta/eip": "link:../ethernauta/packages/eip",
-      "@ethernauta/eth": "link:../ethernauta/packages/eth",
-      "@ethernauta/transaction": "link:../ethernauta/packages/transaction",
-      "@ethernauta/transport": "link:../ethernauta/packages/transport",
-      "@ethernauta/utils": "link:../ethernauta/packages/utils"
-    }
-  },
   "dependencies": {
-    "@ethernauta/abi": "link:../ethernauta/packages/abi",
-    "@ethernauta/chain": "link:../ethernauta/packages/chain",
-    "@ethernauta/cli": "link:../ethernauta/packages/cli",
-    "@ethernauta/eip": "link:../ethernauta/packages/eip",
-    "@ethernauta/eth": "link:../ethernauta/packages/eth",
-    "@ethernauta/transaction": "link:../ethernauta/packages/transaction",
-    "@ethernauta/transport": "link:../ethernauta/packages/transport",
+    "@ethernauta/abi": "^0.0.42",
+    "@ethernauta/chain": "^0.0.42",
+    "@ethernauta/cli": "^0.0.42",
+    "@ethernauta/eip": "^0.0.42",
+    "@ethernauta/eth": "^0.0.42",
+    "@ethernauta/transaction": "^0.0.42",
+    "@ethernauta/transport": "^0.0.42",
     "isbot": "^5.1.31",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",

@@ -4,41 +4,31 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
-overrides:
-  '@ethernauta/abi': link:../ethernauta/packages/abi
-  '@ethernauta/chain': link:../ethernauta/packages/chain
-  '@ethernauta/cli': link:../ethernauta/packages/cli
-  '@ethernauta/eip': link:../ethernauta/packages/eip
-  '@ethernauta/eth': link:../ethernauta/packages/eth
-  '@ethernauta/transaction': link:../ethernauta/packages/transaction
-  '@ethernauta/transport': link:../ethernauta/packages/transport
-  '@ethernauta/utils': link:../ethernauta/packages/utils
-
 importers:
 
   .:
     dependencies:
       '@ethernauta/abi':
-        specifier: link:../ethernauta/packages/abi
-        version: link:../ethernauta/packages/abi
+        specifier: ^0.0.42
+        version: 0.0.42(valibot@1.4.0(typescript@5.9.3))
       '@ethernauta/chain':
-        specifier: link:../ethernauta/packages/chain
-        version: link:../ethernauta/packages/chain
+        specifier: ^0.0.42
+        version: 0.0.42(valibot@1.4.0(typescript@5.9.3))
       '@ethernauta/cli':
-        specifier: link:../ethernauta/packages/cli
-        version: link:../ethernauta/packages/cli
+        specifier: ^0.0.42
+        version: 0.0.42(valibot@1.4.0(typescript@5.9.3))
       '@ethernauta/eip':
-        specifier: link:../ethernauta/packages/eip
-        version: link:../ethernauta/packages/eip
+        specifier: ^0.0.42
+        version: 0.0.42(valibot@1.4.0(typescript@5.9.3))
       '@ethernauta/eth':
-        specifier: link:../ethernauta/packages/eth
-        version: link:../ethernauta/packages/eth
+        specifier: ^0.0.42
+        version: 0.0.42(valibot@1.4.0(typescript@5.9.3))
       '@ethernauta/transaction':
-        specifier: link:../ethernauta/packages/transaction
-        version: link:../ethernauta/packages/transaction
+        specifier: ^0.0.42
+        version: 0.0.42(valibot@1.4.0(typescript@5.9.3))
       '@ethernauta/transport':
-        specifier: link:../ethernauta/packages/transport
-        version: link:../ethernauta/packages/transport
+        specifier: ^0.0.42
+        version: 0.0.42(valibot@1.4.0(typescript@5.9.3))
       isbot:
         specifier: ^5.1.31
         version: 5.1.40
@@ -588,6 +578,47 @@ packages:
     cpu: [x64]
     os: [win32]
 
+  '@ethernauta/abi@0.0.42':
+    resolution: {integrity: sha512-9ZCQRGTG0If9nfCyIc9rROVB2WHgWisMnq+mXzqZ5uaaNYWY2ofOUgflPRM7Rsqu002XSJPJ0mub4RaY/ZQqKQ==}
+    peerDependencies:
+      valibot: ^1.1.0
+
+  '@ethernauta/chain@0.0.42':
+    resolution: {integrity: sha512-APRAR4/zO2IrB1xFm9qe4wm4gVzrpdmHnTKfD+a7obyHVWVvsM+A0FLwtMP/TWC+aUaAyxwdmlKdBGdE3RKxeg==}
+    peerDependencies:
+      valibot: ^1.1.0
+
+  '@ethernauta/cli@0.0.42':
+    resolution: {integrity: sha512-9U34hgzIuwK8tAGdEOj7uadAbxoBCoywR9m/A4nAMRHm2NE6p4AgqUf+4Or7joxT2df5Jh8RTUbuB0Loqsk5UA==}
+    hasBin: true
+    peerDependencies:
+      valibot: ^1.1.0
+
+  '@ethernauta/eip@0.0.42':
+    resolution: {integrity: sha512-jeHnbumB/UmvwRiHJxWD9AY5GtA48hsULyfIzKLAyjCQODrRj2NjJUIoCWqwicjGyl5MnGUWMxWw9f9ZBITlZA==}
+    peerDependencies:
+      valibot: ^1.1.0
+
+  '@ethernauta/eth@0.0.42':
+    resolution: {integrity: sha512-kgLoX6Uhz5gryISa23kHJYFWmefAgKuBAzn02cH0ZPnJGmmGF5OGna+2KoO6p3O6yNX7y6pMwUPIOd8JQQrfkw==}
+    peerDependencies:
+      valibot: ^1.1.0
+
+  '@ethernauta/transaction@0.0.42':
+    resolution: {integrity: sha512-w4+Y2+hrFfj+4dhQ/e4TjqvhJ3H1G+ZW5lFBZ8CnOmGWfOc1FXlK4iVZel/RfM1Z6Vzqp4Y0jxLEBrg1tvdc4g==}
+    peerDependencies:
+      valibot: ^1.1.0
+
+  '@ethernauta/transport@0.0.42':
+    resolution: {integrity: sha512-JcTuIlBBEVRlGzjF26TjDdiGAqV5eXFtD8S7bPSN1mTPAKN/XAWgHuL1/nMs3Gt1AsdqOsj0GJuymPpHVXpNkQ==}
+    peerDependencies:
+      valibot: ^1.1.0
+
+  '@ethernauta/utils@0.0.42':
+    resolution: {integrity: sha512-OgF9lwBPsR93tXytZQQmsP7PkY3RMMhDqVFv7+QKahBbpmho8G1FUPK5+cbIesFbTYBgTrb7iytoNDG6iljupg==}
+    peerDependencies:
+      valibot: ^1.1.0
+
   '@img/colour@1.1.0':
     resolution: {integrity: sha512-Td76q7j57o/tLVdgS746cYARfSyxk8iEfRxewL9h4OMzYhbW4TAcppl0mT4eyqXddh6L/jwoM75mo7ixa/pCeQ==}
     engines: {node: '>=18'}
@@ -746,6 +777,10 @@ packages:
 
   '@mjackson/node-fetch-server@0.2.0':
     resolution: {integrity: sha512-EMlH1e30yzmTpGLQjlFmaDAjyOeZhng1/XCd7DExR8PNAnG/G1tyruZxEoUe11ClnwGhGrtsdnyyUx1frSzjng==}
+
+  '@noble/hashes@1.8.0':
+    resolution: {integrity: sha512-jCs9ldd7NwzpgXDIf6P3+NrHh9/sD6CQdxHyjQI+h/6rDNo88ypBxxz45UDuZHz9r3tNz7N/VInSVoVdtXEI4A==}
+    engines: {node: ^14.21.3 || >=16}
 
   '@poppinss/colors@4.1.6':
     resolution: {integrity: sha512-H9xkIdFswbS8n1d6vmRd8+c10t2Qe+rZITbbDHHkQixH5+2x1FDGmi/0K+WgWiqQFKPSlIYB7jlH6Kpfn6Fleg==}
@@ -1893,6 +1928,52 @@ snapshots:
   '@esbuild/win32-x64@0.27.7':
     optional: true
 
+  '@ethernauta/abi@0.0.42(valibot@1.4.0(typescript@5.9.3))':
+    dependencies:
+      '@ethernauta/eth': 0.0.42(valibot@1.4.0(typescript@5.9.3))
+      '@ethernauta/transport': 0.0.42(valibot@1.4.0(typescript@5.9.3))
+      '@ethernauta/utils': 0.0.42(valibot@1.4.0(typescript@5.9.3))
+      '@noble/hashes': 1.8.0
+      valibot: 1.4.0(typescript@5.9.3)
+
+  '@ethernauta/chain@0.0.42(valibot@1.4.0(typescript@5.9.3))':
+    dependencies:
+      valibot: 1.4.0(typescript@5.9.3)
+
+  '@ethernauta/cli@0.0.42(valibot@1.4.0(typescript@5.9.3))':
+    dependencies:
+      '@ethernauta/abi': 0.0.42(valibot@1.4.0(typescript@5.9.3))
+      valibot: 1.4.0(typescript@5.9.3)
+
+  '@ethernauta/eip@0.0.42(valibot@1.4.0(typescript@5.9.3))':
+    dependencies:
+      '@ethernauta/transport': 0.0.42(valibot@1.4.0(typescript@5.9.3))
+      valibot: 1.4.0(typescript@5.9.3)
+
+  '@ethernauta/eth@0.0.42(valibot@1.4.0(typescript@5.9.3))':
+    dependencies:
+      '@ethernauta/chain': 0.0.42(valibot@1.4.0(typescript@5.9.3))
+      '@ethernauta/transport': 0.0.42(valibot@1.4.0(typescript@5.9.3))
+      valibot: 1.4.0(typescript@5.9.3)
+
+  '@ethernauta/transaction@0.0.42(valibot@1.4.0(typescript@5.9.3))':
+    dependencies:
+      '@ethernauta/chain': 0.0.42(valibot@1.4.0(typescript@5.9.3))
+      '@ethernauta/eth': 0.0.42(valibot@1.4.0(typescript@5.9.3))
+      '@ethernauta/transport': 0.0.42(valibot@1.4.0(typescript@5.9.3))
+      '@ethernauta/utils': 0.0.42(valibot@1.4.0(typescript@5.9.3))
+      valibot: 1.4.0(typescript@5.9.3)
+
+  '@ethernauta/transport@0.0.42(valibot@1.4.0(typescript@5.9.3))':
+    dependencies:
+      valibot: 1.4.0(typescript@5.9.3)
+
+  '@ethernauta/utils@0.0.42(valibot@1.4.0(typescript@5.9.3))':
+    dependencies:
+      '@ethernauta/chain': 0.0.42(valibot@1.4.0(typescript@5.9.3))
+      '@ethernauta/transport': 0.0.42(valibot@1.4.0(typescript@5.9.3))
+      valibot: 1.4.0(typescript@5.9.3)
+
   '@img/colour@1.1.0': {}
 
   '@img/sharp-darwin-arm64@0.34.5':
@@ -2014,6 +2095,8 @@ snapshots:
       '@jridgewell/sourcemap-codec': 1.5.5
 
   '@mjackson/node-fetch-server@0.2.0': {}
+
+  '@noble/hashes@1.8.0': {}
 
   '@poppinss/colors@4.1.6':
     dependencies:

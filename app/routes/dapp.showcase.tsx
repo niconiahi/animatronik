@@ -1,10 +1,6 @@
-import { addressSchema } from "@ethernauta/transport"
-import {
-  create_reader,
-  hex_to_number,
-  http,
-  number_to_hex,
-} from "@ethernauta/transport"
+import { addressSchema } from "@ethernauta/eth"
+import { create_contract, http } from "@ethernauta/transport"
+import { hex_to_number, number_to_hex } from "@ethernauta/utils"
 import { parse } from "valibot"
 import { Link, useLoaderData } from "react-router"
 
@@ -31,7 +27,7 @@ export async function loader({ context }: Route.LoaderArgs) {
     addressSchema,
     env.ANIMATRONIK_SEPOLIA_ADDRESS,
   )
-  const reader = create_reader([
+  const contract = create_contract([
     {
       chainId: CHAIN_ID,
       transports: [http(SEPOLIA_RPC_URL)],
@@ -39,7 +35,7 @@ export async function loader({ context }: Route.LoaderArgs) {
   ])
 
   const supply_hex = await totalSupply()(
-    reader({ chain_id: CHAIN_ID, to }),
+    contract({ chain_id: CHAIN_ID, to }),
   )
   const supply = hex_to_number(supply_hex)
 
@@ -48,9 +44,9 @@ export async function loader({ context }: Route.LoaderArgs) {
   for (let i = 0; i < supply; i++) {
     const token_id = await tokenByIndex({
       index: number_to_hex(i),
-    })(reader({ chain_id: CHAIN_ID, to }))
+    })(contract({ chain_id: CHAIN_ID, to }))
     const compressed = await get_data({ token_id })(
-      reader({ chain_id: CHAIN_ID, to }),
+      contract({ chain_id: CHAIN_ID, to }),
     )
     const json = await decompress(compressed)
     const animatronik = JSON.parse(json) as Animatronik

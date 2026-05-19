@@ -1,5 +1,6 @@
-import type { Readable, ResolvedReader } from "@ethernauta/transport"
-import { bytes_to_hex, callSchema } from "@ethernauta/transport"
+import type { Callable, ResolvedContract } from "@ethernauta/transport"
+import { callSchema } from "@ethernauta/transport"
+import { bytes_to_hex } from "@ethernauta/utils"
 import {
   build_signature,
   decode_function_result,
@@ -27,12 +28,10 @@ const parametersSchema = union([
 type Parameters = InferOutput<typeof parametersSchema>
 
 export function tokenURI(_parameters: Parameters)
-: Readable<string> {
+: Callable<string> {
   return async (
-    [transports, _context]: ResolvedReader,
+    [transports, _context]: ResolvedContract,
   ): Promise<string> => {
-    if (!_context.to)
-      throw new Error("contract Readable requires a 'to' on the reader resolver")
     const parameters = parse(parametersSchema, _parameters)
     const values = Array.isArray(parameters)
       ? parameters

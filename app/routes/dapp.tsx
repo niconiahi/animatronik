@@ -1,9 +1,6 @@
 import { eip155_11155111 } from "@ethernauta/chain"
 import { eth_requestAccounts } from "@ethernauta/eip/1102"
-import {
-  create_signer,
-  encode_chain_id,
-} from "@ethernauta/transport"
+import { create_signer, encode_chain_id } from "@ethernauta/transport"
 import { useState } from "react"
 import { Link, Outlet } from "react-router"
 

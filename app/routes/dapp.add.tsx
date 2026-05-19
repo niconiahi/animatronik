@@ -5,13 +5,8 @@ import {
   type Transaction,
   watch_transaction,
 } from "@ethernauta/transaction"
-import {
-  addressSchema,
-  create_signer,
-  create_writer,
-  encode_chain_id,
-  http,
-} from "@ethernauta/transport"
+import { create_signer, create_writer, encode_chain_id, http } from "@ethernauta/transport"
+import { addressSchema } from "@ethernauta/eth"
 import { parse } from "valibot"
 import { useEffect, useRef, useState } from "react"
 import {

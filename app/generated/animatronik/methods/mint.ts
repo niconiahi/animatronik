@@ -1,7 +1,7 @@
 import type { Bytes } from "@ethernauta/eth"
 import { eth_signTransaction } from "@ethernauta/eth"
 import type { ResolvedSigner, Signable } from "@ethernauta/transport"
-import { bytes_to_hex } from "@ethernauta/transport"
+import { bytes_to_hex } from "@ethernauta/utils"
 import {
   build_signature,
   encode_function_call,

@@ -38,5 +38,16 @@
     "vite": "^7.1.7",
     "vite-tsconfig-paths": "^5.1.4",
     "wrangler": "^4.40.0"
+  },
+  "pnpm": {
+    "overrides": {
+      "@ethernauta/abi": "link:../ethernauta/packages/abi",
+      "@ethernauta/chain": "link:../ethernauta/packages/chain",
+      "@ethernauta/cli": "link:../ethernauta/packages/cli",
+      "@ethernauta/eip": "link:../ethernauta/packages/eip",
+      "@ethernauta/eth": "link:../ethernauta/packages/eth",
+      "@ethernauta/transaction": "link:../ethernauta/packages/transaction",
+      "@ethernauta/transport": "link:../ethernauta/packages/transport"
+    }
   }
 }

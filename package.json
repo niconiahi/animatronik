@@ -1,53 +1,43 @@
 {
-  "name": "my-react-router-app",
-  "private": true,
-  "type": "module",
-  "scripts": {
-    "build": "react-router build",
-    "cf-typegen": "wrangler types",
-    "deploy": "npm run build && wrangler deploy",
-    "dev": "react-router dev",
-    "regen:methods": "ethernauta abi --in contracts/out/AnimatronikContract.sol/AnimatronikContract.json --out app/generated/animatronik",
-    "postinstall": "npm run cf-typegen",
-    "preview": "npm run build && vite preview",
-    "typecheck": "npm run cf-typegen && react-router typegen && tsc -b"
-  },
-  "dependencies": {
-    "@ethernauta/abi": "^0.0.43",
-    "@ethernauta/chain": "^0.0.43",
-    "@ethernauta/cli": "^0.0.43",
-    "@ethernauta/eip": "^0.0.43",
-    "@ethernauta/eth": "^0.0.43",
-    "@ethernauta/transaction": "^0.0.43",
-    "@ethernauta/transport": "^0.0.43",
-    "isbot": "^5.1.31",
-    "react": "^19.1.1",
-    "react-dom": "^19.1.1",
-    "react-router": "^7.9.2",
-    "valibot": "^1.4.0"
-  },
-  "devDependencies": {
-    "@cloudflare/vite-plugin": "^1.13.5",
-    "@react-router/dev": "^7.9.2",
-    "@tailwindcss/vite": "^4.1.13",
-    "@types/node": "^22",
-    "@types/react": "^19.1.13",
-    "@types/react-dom": "^19.1.9",
-    "tailwindcss": "^4.1.13",
-    "typescript": "^5.9.2",
-    "vite": "^7.1.7",
-    "vite-tsconfig-paths": "^5.1.4",
-    "wrangler": "^4.40.0"
-  },
-  "pnpm": {
-    "overrides": {
-      "@ethernauta/abi": "link:../ethernauta/packages/abi",
-      "@ethernauta/chain": "link:../ethernauta/packages/chain",
-      "@ethernauta/cli": "link:../ethernauta/packages/cli",
-      "@ethernauta/eip": "link:../ethernauta/packages/eip",
-      "@ethernauta/eth": "link:../ethernauta/packages/eth",
-      "@ethernauta/transaction": "link:../ethernauta/packages/transaction",
-      "@ethernauta/transport": "link:../ethernauta/packages/transport"
-    }
-  }
+	"name": "my-react-router-app",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"build": "react-router build",
+		"cf-typegen": "wrangler types",
+		"deploy": "npm run build && wrangler deploy",
+		"dev": "react-router dev",
+		"regen:methods": "ethernauta abi --in contracts/out/AnimatronikContract.sol/AnimatronikContract.json --out app/generated/animatronik",
+		"postinstall": "npm run cf-typegen",
+		"preview": "npm run build && vite preview",
+		"typecheck": "npm run cf-typegen && react-router typegen && tsc -b"
+	},
+	"dependencies": {
+		"@ethernauta/abi": "^0.0.43",
+		"@ethernauta/chain": "^0.0.43",
+		"@ethernauta/cli": "^0.0.43",
+		"@ethernauta/eip": "^0.0.43",
+		"@ethernauta/eth": "^0.0.43",
+		"@ethernauta/transaction": "^0.0.43",
+		"@ethernauta/transport": "^0.0.43",
+		"@ethernauta/utils": "^0.0.43",
+		"isbot": "^5.1.40",
+		"react": "^19.2.6",
+		"react-dom": "^19.2.6",
+		"react-router": "^7.15.1",
+		"valibot": "^1.4.0"
+	},
+	"devDependencies": {
+		"@cloudflare/vite-plugin": "^1.37.2",
+		"@react-router/dev": "^7.15.1",
+		"@tailwindcss/vite": "^4.3.0",
+		"@types/node": "^25.9.0",
+		"@types/react": "^19.2.14",
+		"@types/react-dom": "^19.2.3",
+		"tailwindcss": "^4.3.0",
+		"typescript": "^6.0.3",
+		"vite": "^8.0.13",
+		"vite-tsconfig-paths": "^6.1.1",
+		"wrangler": "^4.93.0"
+	}
 }
